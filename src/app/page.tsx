@@ -1,19 +1,49 @@
 import HeroSection from "@/components/HeroSection";
+import RoomSection from "@/components/RoomSection";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-swiss-dark text-swiss-gray">
+    <main className="relative flex min-h-screen flex-col bg-swiss-dark selection:bg-swiss-white selection:text-swiss-dark">
       <HeroSection />
-      {/* Informational Sections Below (Stubbed for "Digital Calm" spacing) */}
-      <section className="min-h-screen py-32 px-8 flex flex-col items-center justify-center">
-        <h2 className="font-serif text-3xl md:text-5xl text-swiss-white mb-8">
-          The Art of Digital Calm
-        </h2>
-        <p className="font-sans text-lg max-w-2xl text-center text-swiss-gray/80 font-light leading-relaxed">
-          At Danae Villa, we believe in the luxury of space, both physical and digital. 
-          Experience the ethereal beauty of the Santorini Caldera without the noise.
-        </p>
+      
+      {/* Philosophy Section */}
+      <section className="relative z-40 -mt-20 flex min-h-[70vh] flex-col items-center justify-center px-8 py-32 md:px-24">
+        <div className="max-w-4xl text-center">
+          <span className="mb-6 block font-sans text-xs font-medium uppercase tracking-[0.3em] text-swiss-white/40">
+            The Philosophy
+          </span>
+          <h2 className="mb-12 font-serif text-4xl font-light leading-tight text-swiss-white md:text-6xl lg:text-7xl">
+            The Art of Digital Calm
+          </h2>
+          <div className="mx-auto mb-16 h-px w-24 bg-gradient-to-r from-transparent via-swiss-white/20 to-transparent" />
+          <p className="mx-auto max-w-2xl font-sans text-xl font-extralight leading-relaxed text-swiss-gray/70 md:text-2xl">
+            At <span className="text-swiss-white font-normal italic">Danae Villa</span>, we believe in the luxury of space—both physical and digital. 
+            Experience the ethereal beauty of Santorini without the noise. 
+            A sanctuary crafted for those who value silence, light, and the vast horizon.
+          </p>
+        </div>
       </section>
+
+      {/* Pool Highlight Section */}
+      <section className="relative h-[80vh] w-full overflow-hidden">
+        <img
+          src="/images/authentic/pool.jpg"
+          alt="Danae Villa Pool at Twilight"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <h3 className="font-serif text-3xl md:text-5xl text-swiss-white mb-4">Serenity Defined</h3>
+            <p className="font-sans text-sm uppercase tracking-widest text-swiss-white/60">The Swimming Pool at Twilight</p>
+          </div>
+        </div>
+      </section>
+
+      <RoomSection />
+
+      {/* Footer Space */}
+      <section className="h-[20vh] bg-swiss-dark" />
     </main>
   );
 }

@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   description: "A sanctuary on the Caldera. Experience Swiss Minimalism and stealth luxury in Santorini.",
 };
 
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,7 +32,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} font-sans bg-swiss-dark text-swiss-gray antialiased selection:bg-white selection:text-black`}
       >
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

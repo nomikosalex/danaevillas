@@ -1,86 +1,85 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-
-const IMAGES = [
-  'https://images.unsplash.com/photo-1613553507747-5f8d62ad5904?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3', // Santorini caldera placeholder
-  'https://images.unsplash.com/photo-1570784534720-33afc5bc08b9?auto=format&fit=crop&q=80&w=2574&ixlib=rb-4.0.3', // Santorini villa view placeholder
-];
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function HeroSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % IMAGES.length);
-    }, 6000);
-    return () => clearInterval(timer);
   }, []);
 
-  const { scrollYProgress } = useScroll();
-  const yParallax = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacityFade = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const { scrollY } = useScroll();
+  
+  // Parallax and scale effects for the image
+  const y = useTransform(scrollY, [0, 500], [0, 200]);
+  const scale = useTransform(scrollY, [0, 500], [1, 1.1]);
+  const blur = useTransform(scrollY, [0, 500], [0, 4]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0.8]);
+
+  // Text lifting effect
+  const textY = useTransform(scrollY, [0, 300], [0, -50]);
+  const textOpacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   if (!mounted) return null;
 
   return (
-    <motion.section
-      className="relative h-screen w-full overflow-hidden bg-swiss-dark"
-      style={{ y: yParallax, opacity: opacityFade }}
-    >
-      <AnimatePresence mode="popLayout">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: 'easeInOut' }}
-          className="absolute inset-0 z-0"
-        >
-          <img
-            src={IMAGES[currentIndex]}
-            alt="Santorini Caldera View"
-            className="h-full w-full object-cover object-center grayscale-[0.2]"
-          />
-        </motion.div>
-      </AnimatePresence>
+    <section className="relative h-[110vh] w-full overflow-hidden bg-swiss-dark">
+      {/* Background Image Container */}
+      <motion.div
+        style={{ y, scale, filter: `blur(${blur}px)`, opacity }}
+        className="absolute inset-0 z-0 h-[120vh] w-full"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-swiss-dark z-10" />
+        <img
+          src="/images/hero.png"
+          alt="Danae Villa - Santorini Caldera View"
+          className="h-full w-full object-cover grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+        />
+      </motion.div>
 
-      <div className="absolute inset-0 z-10 bg-black/20" />
-
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center space-y-8 p-8">
+      {/* Hero Content */}
+      <div className="relative z-20 flex h-full flex-col items-center justify-center p-8 text-center">
         <motion.div
-          initial={{ y: 24, opacity: 0 }}
+          style={{ y: textY, opacity: textOpacity }}
+          initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center"
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="font-serif text-5xl font-bold tracking-wide text-swiss-white md:text-7xl lg:text-8xl">
-            Welcome to Danae Villas
+          <span className="mb-4 block font-sans text-xs font-light uppercase tracking-[0.4em] text-swiss-gray/80 md:text-sm">
+            Santorini, Greece
+          </span>
+          <h1 className="font-serif text-5xl font-bold tracking-tight text-swiss-white md:text-8xl lg:text-9xl">
+            Danae Villa
           </h1>
-          <p className="mt-4 font-sans text-sm font-light uppercase tracking-[0.2em] text-swiss-gray">
-            A Sanctuary on the Caldera
+          <p className="mt-6 font-sans text-lg font-light italic tracking-wide text-swiss-gray/90 md:text-xl">
+            A sanctuary on the edge of the world.
           </p>
         </motion.div>
 
+        {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-16 left-1/2 flex -translate-x-1/2 flex-col items-center gap-4"
+          className="absolute bottom-24 flex flex-col items-center gap-6"
         >
-          <span className="font-sans text-xs uppercase tracking-widest text-white/70">
-            Scroll to Discover
+          <div className="h-24 w-[1px] overflow-hidden bg-white/10">
+            <motion.div
+              animate={{ y: [0, 96, 0] }}
+              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+              className="h-full w-full bg-gradient-to-b from-transparent via-swiss-white to-transparent"
+            />
+          </div>
+          <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-swiss-white/40">
+            Begin the Experience
           </span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            className="h-12 w-[1px] bg-white/50"
-          />
         </motion.div>
       </div>
-    </motion.section>
+
+      {/* Seamless transition mask at the bottom */}
+      <div className="absolute bottom-0 left-0 z-30 h-32 w-full bg-gradient-to-t from-swiss-dark to-transparent" />
+    </section>
   );
 }
