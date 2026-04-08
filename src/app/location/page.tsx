@@ -1,4 +1,4 @@
-'use client';
+
 
 import { motion } from 'framer-motion';
 
@@ -89,18 +89,18 @@ export default function LocationPage() {
 
             {/* Visual element (placeholder for map or local shot) */}
             <div className="relative aspect-[4/3] bg-swiss-white/5 overflow-hidden border border-swiss-white/10 group">
-               <iframe
-                 src="https://www.openstreetmap.org/export/embed.html?bbox=25.43599%2C36.41504%2C25.44199%2C36.42104&layer=mapnik&marker=36.41804%2C25.43899"
-                 width="100%"
-                 height="100%"
-                 style={{ border: 0 }}
-                 allowFullScreen={true}
-                 loading="lazy"
-                 referrerPolicy="no-referrer-when-downgrade"
-                 className="grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
-               ></iframe>
-               {/* Minimalist Overlay to keep the aesthetic when not interacting */}
-               <div className="absolute inset-0 pointer-events-none border-[15px] border-swiss-dark shadow-[inset_0_0_80px_rgba(0,0,0,0.4)] opacity-30 group-hover:opacity-0 transition-opacity duration-500"></div>
+              <iframe
+                src="https://www.openstreetmap.org/export/embed.html?bbox=25.43599%2C36.41504%2C25.44199%2C36.42104&layer=mapnik&marker=36.41804%2C25.43899"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+              ></iframe>
+              {/* Minimalist Overlay to keep the aesthetic when not interacting */}
+              <div className="absolute inset-0 pointer-events-none border-[15px] border-swiss-dark shadow-[inset_0_0_80px_rgba(0,0,0,0.4)] opacity-30 group-hover:opacity-0 transition-opacity duration-500"></div>
             </div>
           </div>
         </div>

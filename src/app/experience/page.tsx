@@ -108,7 +108,7 @@ export default function ExperiencePage() {
          >
             <h2 className="font-serif text-5xl md:text-8xl italic font-normal tracking-tight mb-12">Filoxenia</h2>
             <p className="text-swiss-dark/70 font-light text-xl md:text-2xl leading-relaxed italic">
-              "To make a stranger a friend." 
+              &ldquo;To make a stranger a friend.&rdquo;
             </p>
             <p className="text-swiss-dark/40 font-sans text-xs uppercase tracking-[0.5em] mt-8">The Essence of Danae Villa</p>
          </motion.div>
