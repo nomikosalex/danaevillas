@@ -1,4 +1,4 @@
-
+'use client';
 
 import { motion } from 'framer-motion';
 
@@ -33,7 +33,7 @@ export default function LocationPage() {
           <p className="text-swiss-dark/70 font-light text-lg md:text-xl leading-relaxed mb-8">
             Danae Villa is situated in the peaceful neighborhood of <span className="text-swiss-dark font-normal">Kontochori</span>.
             While nestled away from the bustling tourist crowds, it remains a mere 10-minute walk from
-            the vibrant heart of Fira, the island's capital.
+            the vibrant heart of Fira, the island&apos;s capital.
           </p>
           <p className="text-swiss-dark/60 font-light text-base md:text-lg leading-relaxed">
             Guests enjoy the luxury of choosing between the quiet serenity of the villa
@@ -94,9 +94,10 @@ export default function LocationPage() {
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
-                allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                sandbox="allow-same-origin allow-scripts"
+                title="Villa location map"
                 className="grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
               ></iframe>
               {/* Minimalist Overlay to keep the aesthetic when not interacting */}

@@ -61,7 +61,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="/contact"
+            href="/book"
             className="border border-swiss-white/20 px-6 py-2 font-sans text-[10px] uppercase tracking-[0.3em] text-swiss-white transition-all hover:bg-swiss-white hover:text-swiss-dark"
           >
             Book Now
@@ -98,11 +98,11 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link
-                href="/contact"
+                href="/book"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="mt-8 border border-swiss-white/20 py-4 font-sans text-xs uppercase tracking-widest text-swiss-white"
               >
-                Inquire Now
+                Book Now
               </Link>
             </div>
             <button

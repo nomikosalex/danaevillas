@@ -3,14 +3,115 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const VALID_SERVICES = ['none', 'transfers', 'tours', 'both'];
+
+interface FormValues {
+  name: string;
+  email: string;
+  checkIn: string;
+  checkOut: string;
+  service: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  checkIn?: string;
+  checkOut?: string;
+  service?: string;
+  message?: string;
+}
+
+function validate(values: FormValues): FormErrors {
+  const errors: FormErrors = {};
+  const today = new Date().toISOString().split('T')[0];
+
+  if (!values.name.trim()) {
+    errors.name = 'Name is required.';
+  } else if (values.name.trim().length < 2) {
+    errors.name = 'Name must be at least 2 characters.';
+  } else if (values.name.trim().length > 100) {
+    errors.name = 'Name must be under 100 characters.';
+  }
+
+  if (!values.email.trim()) {
+    errors.email = 'Email is required.';
+  } else if (!EMAIL_REGEX.test(values.email.trim())) {
+    errors.email = 'Please enter a valid email address.';
+  }
+
+  if (!values.checkIn) {
+    errors.checkIn = 'Check-in date is required.';
+  } else if (values.checkIn < today) {
+    errors.checkIn = 'Check-in cannot be in the past.';
+  }
+
+  if (!values.checkOut) {
+    errors.checkOut = 'Check-out date is required.';
+  } else if (values.checkIn && values.checkOut <= values.checkIn) {
+    errors.checkOut = 'Check-out must be after check-in.';
+  }
+
+  if (!VALID_SERVICES.includes(values.service)) {
+    errors.service = 'Please select a valid option.';
+  }
+
+  if (values.message.length > 1000) {
+    errors.message = 'Message must be under 1000 characters.';
+  }
+
+  return errors;
+}
+
 export default function ContactPage() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [values, setValues] = useState<FormValues>({
+    name: '',
+    email: '',
+    checkIn: '',
+    checkOut: '',
+    service: 'none',
+    message: '',
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  const handleChange = (field: keyof FormValues, value: string) => {
+    const sanitized = value.slice(0, field === 'message' ? 1000 : 200);
+    const next = { ...values, [field]: sanitized };
+    setValues(next);
+    if (touched[field]) {
+      setErrors(validate(next));
+    }
+  };
+
+  const handleBlur = (field: keyof FormValues) => {
+    setTouched((t) => ({ ...t, [field]: true }));
+    setErrors(validate(values));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const allTouched = Object.fromEntries(Object.keys(values).map((k) => [k, true]));
+    setTouched(allTouched);
+    const errs = validate(values);
+    setErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
     setFormState('submitting');
+    // TODO: replace with real API call / server action
     setTimeout(() => setFormState('success'), 1500);
   };
+
+  const errorClass = 'mt-1 text-[10px] text-red-400 tracking-wider';
+  const inputClass = (field: keyof FormValues) =>
+    `w-full bg-transparent border-b py-4 px-2 outline-none transition-colors font-light text-sm ${
+      errors[field] && touched[field]
+        ? 'border-red-400'
+        : 'border-swiss-white/10 focus:border-swiss-white'
+    }`;
 
   return (
     <main className="bg-swiss-dark min-h-screen pt-32 pb-24 text-swiss-white">
@@ -24,7 +125,7 @@ export default function ContactPage() {
             <span className="block font-sans text-[10px] uppercase tracking-[0.5em] text-swiss-gray/40 mb-6">Connect</span>
             <h1 className="font-serif text-5xl md:text-7xl mb-8">Begin Your <br /><span className="italic font-normal text-swiss-gray/60">Journey</span></h1>
             <p className="text-swiss-gray/60 font-light text-lg max-w-md leading-relaxed">
-              For reservations, specialty requests, or to arrange your private transfers, please complete the inquiry form. 
+              For reservations, specialty requests, or to arrange your private transfers, please complete the inquiry form.
               Our team will respond personally within 24 hours.
             </p>
           </motion.div>
@@ -37,18 +138,18 @@ export default function ContactPage() {
             <div>
               <h4 className="font-sans text-[10px] uppercase tracking-widest text-swiss-white mb-2">Social</h4>
               <div className="flex space-x-6">
-                 <a href="#" className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-xs">Instagram</a>
-                 <a href="#" className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-xs">Facebook</a>
+                <a href="#" className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-xs">Instagram</a>
+                <a href="#" className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-xs">Facebook</a>
               </div>
             </div>
             <div className="pt-4">
-               <a 
-                 href="https://wa.me/30XXXXXXXXXX" 
-                 className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-6 py-3 rounded-full hover:bg-white/10 transition-all text-[10px] uppercase tracking-[0.2em]"
-               >
-                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                 <span>Message on WhatsApp</span>
-               </a>
+              <a
+                href="https://wa.me/30XXXXXXXXXX"
+                className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-6 py-3 rounded-full hover:bg-white/10 transition-all text-[10px] uppercase tracking-[0.2em]"
+              >
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span>Message on WhatsApp</span>
+              </a>
             </div>
           </div>
         </div>
@@ -57,77 +158,135 @@ export default function ContactPage() {
         <div className="relative">
           <AnimatePresence mode="wait">
             {formState !== 'success' ? (
-              <motion.form 
+              <motion.form
                 key="form"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 onSubmit={handleSubmit}
+                noValidate
                 className="space-y-8"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Full Name</label>
-                    <input required type="text" className="w-full bg-transparent border-b border-swiss-white/10 py-4 px-2 outline-none focus:border-swiss-white transition-colors font-light text-sm" placeholder="John Doe" />
+                    <input
+                      type="text"
+                      autoComplete="name"
+                      maxLength={100}
+                      value={values.name}
+                      onChange={(e) => handleChange('name', e.target.value)}
+                      onBlur={() => handleBlur('name')}
+                      className={inputClass('name')}
+                      placeholder="John Doe"
+                    />
+                    {errors.name && touched.name && <p className={errorClass}>{errors.name}</p>}
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Email Address</label>
-                    <input required type="email" className="w-full bg-transparent border-b border-swiss-white/10 py-4 px-2 outline-none focus:border-swiss-white transition-colors font-light text-sm" placeholder="john@example.com" />
+                    <input
+                      type="email"
+                      autoComplete="email"
+                      maxLength={200}
+                      value={values.email}
+                      onChange={(e) => handleChange('email', e.target.value)}
+                      onBlur={() => handleBlur('email')}
+                      className={inputClass('email')}
+                      placeholder="john@example.com"
+                    />
+                    {errors.email && touched.email && <p className={errorClass}>{errors.email}</p>}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Check-In</label>
-                    <input required type="date" className="w-full bg-transparent border-b border-swiss-white/10 py-4 px-2 outline-none focus:border-swiss-white transition-colors font-light text-sm uppercase" />
+                    <input
+                      type="date"
+                      value={values.checkIn}
+                      onChange={(e) => handleChange('checkIn', e.target.value)}
+                      onBlur={() => handleBlur('checkIn')}
+                      className={inputClass('checkIn') + ' uppercase'}
+                    />
+                    {errors.checkIn && touched.checkIn && <p className={errorClass}>{errors.checkIn}</p>}
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Check-Out</label>
-                    <input required type="date" className="w-full bg-transparent border-b border-swiss-white/10 py-4 px-2 outline-none focus:border-swiss-white transition-colors font-light text-sm uppercase" />
+                    <input
+                      type="date"
+                      value={values.checkOut}
+                      onChange={(e) => handleChange('checkOut', e.target.value)}
+                      onBlur={() => handleBlur('checkOut')}
+                      className={inputClass('checkOut') + ' uppercase'}
+                    />
+                    {errors.checkOut && touched.checkOut && <p className={errorClass}>{errors.checkOut}</p>}
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Services of Interest</label>
-                  <select className="w-full bg-transparent border-b border-swiss-white/10 py-4 px-2 outline-none focus:border-swiss-white transition-colors font-light text-sm appearance-none cursor-pointer">
+                  <select
+                    value={values.service}
+                    onChange={(e) => handleChange('service', e.target.value)}
+                    onBlur={() => handleBlur('service')}
+                    className={inputClass('service') + ' appearance-none cursor-pointer'}
+                  >
                     <option className="bg-swiss-dark" value="none">Just Accommodation</option>
                     <option className="bg-swiss-dark" value="transfers">Private Transfers</option>
                     <option className="bg-swiss-dark" value="tours">Island Tours</option>
-                    <option className="bg-swiss-dark" value="both">Both Transfers & Tours</option>
+                    <option className="bg-swiss-dark" value="both">Both Transfers &amp; Tours</option>
                   </select>
+                  {errors.service && touched.service && <p className={errorClass}>{errors.service}</p>}
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Special Requests</label>
-                  <textarea rows={4} className="w-full bg-transparent border-b border-swiss-white/10 py-4 px-2 outline-none focus:border-swiss-white transition-colors font-light text-sm resize-none" placeholder="Is there anything we can prepare for your arrival?" />
+                <div className="space-y-1">
+                  <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">
+                    Special Requests
+                    <span className="ml-2 text-swiss-gray/20">{values.message.length}/1000</span>
+                  </label>
+                  <textarea
+                    rows={4}
+                    maxLength={1000}
+                    value={values.message}
+                    onChange={(e) => handleChange('message', e.target.value)}
+                    onBlur={() => handleBlur('message')}
+                    className={inputClass('message') + ' resize-none'}
+                    placeholder="Is there anything we can prepare for your arrival?"
+                  />
+                  {errors.message && touched.message && <p className={errorClass}>{errors.message}</p>}
                 </div>
 
-                <button 
+                <button
                   disabled={formState === 'submitting'}
-                  type="submit" 
+                  type="submit"
                   className="w-full py-6 border border-swiss-white/20 text-[10px] uppercase tracking-[0.4em] hover:bg-swiss-white hover:text-swiss-dark transition-all disabled:opacity-50"
                 >
                   {formState === 'submitting' ? 'Sending Inquiry...' : 'Send Inquiry'}
                 </button>
               </motion.form>
             ) : (
-              <motion.div 
+              <motion.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="h-full flex flex-col items-center justify-center text-center space-y-6 py-24 border border-swiss-white/10"
               >
                 <div className="w-16 h-16 border border-swiss-white rounded-full flex items-center justify-center">
-                   <svg className="w-8 h-8 text-swiss-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 13l4 4L19 7" />
-                   </svg>
+                  <svg className="w-8 h-8 text-swiss-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 13l4 4L19 7" />
+                  </svg>
                 </div>
                 <h2 className="font-serif text-3xl">Inquiry Received</h2>
                 <p className="text-swiss-gray/60 font-light text-sm max-w-xs mx-auto">
                   Thank you for choosing Danae Villa. We will review your request and contact you shortly to finalize your stay.
                 </p>
-                <button 
-                  onClick={() => setFormState('idle')}
+                <button
+                  onClick={() => {
+                    setFormState('idle');
+                    setValues({ name: '', email: '', checkIn: '', checkOut: '', service: 'none', message: '' });
+                    setErrors({});
+                    setTouched({});
+                  }}
                   className="text-[10px] uppercase tracking-[0.3em] text-swiss-white border-b border-swiss-white/20 pb-1"
                 >
                   Send Another Inquiry
