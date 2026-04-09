@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
+import { T } from '@/i18n/translations';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const VALID_SERVICES = ['none', 'transfers', 'tours', 'both'];
@@ -24,56 +26,54 @@ interface FormErrors {
   message?: string;
 }
 
-function validate(values: FormValues): FormErrors {
+function validate(values: FormValues, c: T['contact']): FormErrors {
   const errors: FormErrors = {};
   const today = new Date().toISOString().split('T')[0];
 
   if (!values.name.trim()) {
-    errors.name = 'Name is required.';
+    errors.name = c.errNameRequired;
   } else if (values.name.trim().length < 2) {
-    errors.name = 'Name must be at least 2 characters.';
+    errors.name = c.errNameMin;
   } else if (values.name.trim().length > 100) {
-    errors.name = 'Name must be under 100 characters.';
+    errors.name = c.errNameMax;
   }
 
   if (!values.email.trim()) {
-    errors.email = 'Email is required.';
+    errors.email = c.errEmailRequired;
   } else if (!EMAIL_REGEX.test(values.email.trim())) {
-    errors.email = 'Please enter a valid email address.';
+    errors.email = c.errEmailInvalid;
   }
 
   if (!values.checkIn) {
-    errors.checkIn = 'Check-in date is required.';
+    errors.checkIn = c.errCheckInRequired;
   } else if (values.checkIn < today) {
-    errors.checkIn = 'Check-in cannot be in the past.';
+    errors.checkIn = c.errCheckInPast;
   }
 
   if (!values.checkOut) {
-    errors.checkOut = 'Check-out date is required.';
+    errors.checkOut = c.errCheckOutRequired;
   } else if (values.checkIn && values.checkOut <= values.checkIn) {
-    errors.checkOut = 'Check-out must be after check-in.';
+    errors.checkOut = c.errCheckOutAfter;
   }
 
   if (!VALID_SERVICES.includes(values.service)) {
-    errors.service = 'Please select a valid option.';
+    errors.service = c.errServiceInvalid;
   }
 
   if (values.message.length > 1000) {
-    errors.message = 'Message must be under 1000 characters.';
+    errors.message = c.errMessageMax;
   }
 
   return errors;
 }
 
 export default function ContactPage() {
+  const { t } = useLanguage();
+  const c = t.contact;
+
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [values, setValues] = useState<FormValues>({
-    name: '',
-    email: '',
-    checkIn: '',
-    checkOut: '',
-    service: 'none',
-    message: '',
+    name: '', email: '', checkIn: '', checkOut: '', service: 'none', message: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -82,26 +82,23 @@ export default function ContactPage() {
     const sanitized = value.slice(0, field === 'message' ? 1000 : 200);
     const next = { ...values, [field]: sanitized };
     setValues(next);
-    if (touched[field]) {
-      setErrors(validate(next));
-    }
+    if (touched[field]) setErrors(validate(next, c));
   };
 
   const handleBlur = (field: keyof FormValues) => {
-    setTouched((t) => ({ ...t, [field]: true }));
-    setErrors(validate(values));
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    setErrors(validate(values, c));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const allTouched = Object.fromEntries(Object.keys(values).map((k) => [k, true]));
     setTouched(allTouched);
-    const errs = validate(values);
+    const errs = validate(values, c);
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
     setFormState('submitting');
-    // TODO: replace with real API call / server action
     setTimeout(() => setFormState('success'), 1500);
   };
 
@@ -118,25 +115,23 @@ export default function ContactPage() {
       <div className="max-w-7xl mx-auto px-8 md:px-24 grid grid-cols-1 lg:grid-cols-2 gap-24">
         {/* Left Column: Info */}
         <div className="space-y-12">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            <span className="block font-sans text-[10px] uppercase tracking-[0.5em] text-swiss-gray/40 mb-6">Connect</span>
-            <h1 className="font-serif text-5xl md:text-7xl mb-8">Begin Your <br /><span className="italic font-normal text-swiss-gray/60">Journey</span></h1>
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
+            <span className="block font-sans text-[10px] uppercase tracking-[0.5em] text-swiss-gray/40 mb-6">{c.label}</span>
+            <h1 className="font-serif text-5xl md:text-7xl mb-8">
+              {c.titleMain} <br /><span className="italic font-normal text-swiss-gray/60">{c.titleItalic}</span>
+            </h1>
             <p className="text-swiss-gray/60 font-light text-lg max-w-md leading-relaxed">
-              For reservations, specialty requests, or to arrange your private transfers, please complete the inquiry form.
-              Our team will respond personally within 24 hours.
+              {c.description}
             </p>
           </motion.div>
 
           <div className="space-y-8 pt-8 border-t border-swiss-white/5">
             <div>
-              <h4 className="font-sans text-[10px] uppercase tracking-widest text-swiss-white mb-2">Direct Contact</h4>
+              <h4 className="font-sans text-[10px] uppercase tracking-widest text-swiss-white mb-2">{c.directLabel}</h4>
               <p className="text-swiss-gray/40 text-sm font-light">info@danaevilla.eu</p>
             </div>
             <div>
-              <h4 className="font-sans text-[10px] uppercase tracking-widest text-swiss-white mb-2">Social</h4>
+              <h4 className="font-sans text-[10px] uppercase tracking-widest text-swiss-white mb-2">{c.socialLabel}</h4>
               <div className="flex space-x-6">
                 <a href="#" className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-xs">Instagram</a>
                 <a href="#" className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-xs">Facebook</a>
@@ -148,7 +143,7 @@ export default function ContactPage() {
                 className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-6 py-3 rounded-full hover:bg-white/10 transition-all text-[10px] uppercase tracking-[0.2em]"
               >
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span>Message on WhatsApp</span>
+                <span>{c.whatsapp}</span>
               </a>
             </div>
           </div>
@@ -169,7 +164,7 @@ export default function ContactPage() {
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Full Name</label>
+                    <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">{c.nameLabel}</label>
                     <input
                       type="text"
                       autoComplete="name"
@@ -178,12 +173,12 @@ export default function ContactPage() {
                       onChange={(e) => handleChange('name', e.target.value)}
                       onBlur={() => handleBlur('name')}
                       className={inputClass('name')}
-                      placeholder="John Doe"
+                      placeholder={c.namePlaceholder}
                     />
                     {errors.name && touched.name && <p className={errorClass}>{errors.name}</p>}
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Email Address</label>
+                    <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">{c.emailLabel}</label>
                     <input
                       type="email"
                       autoComplete="email"
@@ -192,7 +187,7 @@ export default function ContactPage() {
                       onChange={(e) => handleChange('email', e.target.value)}
                       onBlur={() => handleBlur('email')}
                       className={inputClass('email')}
-                      placeholder="john@example.com"
+                      placeholder={c.emailPlaceholder}
                     />
                     {errors.email && touched.email && <p className={errorClass}>{errors.email}</p>}
                   </div>
@@ -200,7 +195,7 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Check-In</label>
+                    <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">{c.checkInLabel}</label>
                     <input
                       type="date"
                       value={values.checkIn}
@@ -211,7 +206,7 @@ export default function ContactPage() {
                     {errors.checkIn && touched.checkIn && <p className={errorClass}>{errors.checkIn}</p>}
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Check-Out</label>
+                    <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">{c.checkOutLabel}</label>
                     <input
                       type="date"
                       value={values.checkOut}
@@ -224,24 +219,24 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">Services of Interest</label>
+                  <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">{c.serviceLabel}</label>
                   <select
                     value={values.service}
                     onChange={(e) => handleChange('service', e.target.value)}
                     onBlur={() => handleBlur('service')}
                     className={inputClass('service') + ' appearance-none cursor-pointer'}
                   >
-                    <option className="bg-swiss-dark" value="none">Just Accommodation</option>
-                    <option className="bg-swiss-dark" value="transfers">Private Transfers</option>
-                    <option className="bg-swiss-dark" value="tours">Island Tours</option>
-                    <option className="bg-swiss-dark" value="both">Both Transfers &amp; Tours</option>
+                    <option className="bg-swiss-dark" value="none">{c.serviceNone}</option>
+                    <option className="bg-swiss-dark" value="transfers">{c.serviceTransfers}</option>
+                    <option className="bg-swiss-dark" value="tours">{c.serviceTours}</option>
+                    <option className="bg-swiss-dark" value="both">{c.serviceBoth}</option>
                   </select>
                   {errors.service && touched.service && <p className={errorClass}>{errors.service}</p>}
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">
-                    Special Requests
+                    {c.messageLabel}
                     <span className="ml-2 text-swiss-gray/20">{values.message.length}/1000</span>
                   </label>
                   <textarea
@@ -251,7 +246,7 @@ export default function ContactPage() {
                     onChange={(e) => handleChange('message', e.target.value)}
                     onBlur={() => handleBlur('message')}
                     className={inputClass('message') + ' resize-none'}
-                    placeholder="Is there anything we can prepare for your arrival?"
+                    placeholder={c.messagePlaceholder}
                   />
                   {errors.message && touched.message && <p className={errorClass}>{errors.message}</p>}
                 </div>
@@ -261,7 +256,7 @@ export default function ContactPage() {
                   type="submit"
                   className="w-full py-6 border border-swiss-white/20 text-[10px] uppercase tracking-[0.4em] hover:bg-swiss-white hover:text-swiss-dark transition-all disabled:opacity-50"
                 >
-                  {formState === 'submitting' ? 'Sending Inquiry...' : 'Send Inquiry'}
+                  {formState === 'submitting' ? c.submittingBtn : c.submitBtn}
                 </button>
               </motion.form>
             ) : (
@@ -276,9 +271,9 @@ export default function ContactPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h2 className="font-serif text-3xl">Inquiry Received</h2>
+                <h2 className="font-serif text-3xl">{c.successTitle}</h2>
                 <p className="text-swiss-gray/60 font-light text-sm max-w-xs mx-auto">
-                  Thank you for choosing Danae Villa. We will review your request and contact you shortly to finalize your stay.
+                  {c.successText}
                 </p>
                 <button
                   onClick={() => {
@@ -289,7 +284,7 @@ export default function ContactPage() {
                   }}
                   className="text-[10px] uppercase tracking-[0.3em] text-swiss-white border-b border-swiss-white/20 pb-1"
                 >
-                  Send Another Inquiry
+                  {c.successBtn}
                 </button>
               </motion.div>
             )}

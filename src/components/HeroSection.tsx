@@ -2,23 +2,23 @@
 
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const { scrollY } = useScroll();
-  
-  // Parallax and scale effects for the image
+
   const y = useTransform(scrollY, [0, 500], [0, 200]);
   const scale = useTransform(scrollY, [0, 500], [1, 1.1]);
   const blur = useTransform(scrollY, [0, 500], [0, 4]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0.8]);
 
-  // Text lifting effect
   const textY = useTransform(scrollY, [0, 300], [0, -50]);
   const textOpacity = useTransform(scrollY, [0, 300], [1, 0]);
 
@@ -26,7 +26,6 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-[110vh] w-full overflow-hidden bg-swiss-dark">
-      {/* Background Image Container */}
       <motion.div
         style={{ y, scale, filter: `blur(${blur}px)`, opacity }}
         className="absolute inset-0 z-0 h-[120vh] w-full"
@@ -39,7 +38,6 @@ export default function HeroSection() {
         />
       </motion.div>
 
-      {/* Hero Content */}
       <div className="relative z-20 flex h-full flex-col items-center justify-center p-8 text-center">
         <motion.div
           style={{ y: textY, opacity: textOpacity }}
@@ -48,17 +46,16 @@ export default function HeroSection() {
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="mb-4 block font-sans text-xs font-light uppercase tracking-[0.4em] text-swiss-gray/80 md:text-sm">
-            Santorini, Greece
+            {t.hero.location}
           </span>
           <h1 className="font-serif text-5xl font-bold tracking-tight text-swiss-white md:text-8xl lg:text-9xl">
             Danae Villa
           </h1>
           <p className="mt-6 font-sans text-lg font-light italic tracking-wide text-swiss-gray/90 md:text-xl">
-            A sanctuary on the edge of the world.
+            {t.hero.tagline}
           </p>
         </motion.div>
 
-        {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -73,12 +70,11 @@ export default function HeroSection() {
             />
           </div>
           <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-swiss-white/40">
-            Begin the Experience
+            {t.hero.scroll}
           </span>
         </motion.div>
       </div>
 
-      {/* Seamless transition mask at the bottom */}
       <div className="absolute bottom-0 left-0 z-30 h-32 w-full bg-gradient-to-t from-swiss-dark to-transparent" />
     </section>
   );

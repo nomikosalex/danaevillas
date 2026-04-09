@@ -1,8 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function LocationPage() {
+  const { t } = useLanguage();
+  const l = t.location;
+
   return (
     <main className="bg-swiss-white min-h-screen">
       {/* Header Section */}
@@ -15,10 +19,10 @@ export default function LocationPage() {
         <div className="absolute inset-0 flex items-center justify-center p-8 text-center pt-24">
           <div>
             <span className="mb-4 block font-sans text-xs font-light uppercase tracking-[0.4em] text-swiss-gray/80">
-              The Heart of Santorini
+              {l.label}
             </span>
             <h1 className="font-serif text-5xl font-bold tracking-tight text-swiss-white md:text-8xl">
-              Fira
+              {l.title}
             </h1>
           </div>
         </div>
@@ -28,17 +32,13 @@ export default function LocationPage() {
       <section className="py-32 px-8 md:px-24">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-serif text-3xl md:text-5xl text-swiss-dark mb-12">
-            A Quiet Corner in the Capital
+            {l.sectionTitle}
           </h2>
           <p className="text-swiss-dark/70 font-light text-lg md:text-xl leading-relaxed mb-8">
-            Danae Villa is situated in the peaceful neighborhood of <span className="text-swiss-dark font-normal">Kontochori</span>.
-            While nestled away from the bustling tourist crowds, it remains a mere 10-minute walk from
-            the vibrant heart of Fira, the island&apos;s capital.
+            {l.p1}
           </p>
           <p className="text-swiss-dark/60 font-light text-base md:text-lg leading-relaxed">
-            Guests enjoy the luxury of choosing between the quiet serenity of the villa
-            and the world-renowned sunsets, shops, and restaurants of the Caldera cliffside,
-            which are easily accessible on foot.
+            {l.p2}
           </p>
         </div>
       </section>
@@ -53,10 +53,9 @@ export default function LocationPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <h3 className="font-serif text-2xl mb-4">Walk to the Caldera</h3>
+                <h3 className="font-serif text-2xl mb-4">{l.calderaTitle}</h3>
                 <p className="text-swiss-gray/60 font-light text-sm leading-relaxed max-w-md">
-                  A gentle uphill walk of approximately 800 meters brings you to the edge of the Caldera,
-                  offering spectacular views of the volcano and the Aegean Sea.
+                  {l.calderaText}
                 </p>
               </motion.div>
 
@@ -66,10 +65,9 @@ export default function LocationPage() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                <h3 className="font-serif text-2xl mb-4">Island Accessibility</h3>
+                <h3 className="font-serif text-2xl mb-4">{l.accessTitle}</h3>
                 <p className="text-swiss-gray/60 font-light text-sm leading-relaxed max-w-md">
-                  Fira is the central hub for all Santorini exploration. The main bus terminal and taxi
-                  stations are within walking distance, allowing effortless travel to Oia, Akrotiri, and the beaches.
+                  {l.accessText}
                 </p>
               </motion.div>
 
@@ -79,15 +77,14 @@ export default function LocationPage() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
               >
-                <h3 className="font-serif text-2xl mb-4">Local Life</h3>
+                <h3 className="font-serif text-2xl mb-4">{l.localTitle}</h3>
                 <p className="text-swiss-gray/60 font-light text-sm leading-relaxed max-w-md">
-                  Kontochori is a residential area that offers a glimpse into authentic island life,
-                  with local bakeries, small churches, and a more relaxed pace than the main streets.
+                  {l.localText}
                 </p>
               </motion.div>
             </div>
 
-            {/* Visual element (placeholder for map or local shot) */}
+            {/* Map */}
             <div className="relative aspect-[4/3] bg-swiss-white/5 overflow-hidden border border-swiss-white/10 group">
               <iframe
                 src="https://www.openstreetmap.org/export/embed.html?bbox=25.43599%2C36.41504%2C25.44199%2C36.42104&layer=mapnik&marker=36.41804%2C25.43899"
@@ -100,7 +97,6 @@ export default function LocationPage() {
                 title="Villa location map"
                 className="grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
               ></iframe>
-              {/* Minimalist Overlay to keep the aesthetic when not interacting */}
               <div className="absolute inset-0 pointer-events-none border-[15px] border-swiss-dark shadow-[inset_0_0_80px_rgba(0,0,0,0.4)] opacity-30 group-hover:opacity-0 transition-opacity duration-500"></div>
             </div>
           </div>

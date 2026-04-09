@@ -5,18 +5,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-
-const NAV_LINKS = [
-  { name: 'Home', href: '/' },
-  { name: 'Rooms', href: '/rooms' },
-  { name: 'Experience', href: '/experience' },
-  { name: 'Location', href: '/location' },
-];
+import { useLanguage } from '@/context/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
+
+  const NAV_LINKS = [
+    { name: t.nav.home, href: '/' },
+    { name: t.nav.rooms, href: '/rooms' },
+    { name: t.nav.experience, href: '/experience' },
+    { name: t.nav.location, href: '/location' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,10 +45,10 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center space-x-12 md:flex">
+        <div className="hidden items-center space-x-10 md:flex">
           {NAV_LINKS.map((link) => (
             <Link
-              key={link.name}
+              key={link.href}
               href={link.href}
               className={`relative font-sans text-xs uppercase tracking-[0.2em] transition-colors hover:text-swiss-white ${
                 pathname === link.href ? 'text-swiss-white' : 'text-swiss-gray/60'
@@ -60,11 +63,14 @@ export default function Navbar() {
               )}
             </Link>
           ))}
+
+          <LanguageSwitcher />
+
           <Link
             href="/book"
             className="border border-swiss-white/20 px-6 py-2 font-sans text-[10px] uppercase tracking-[0.3em] text-swiss-white transition-all hover:bg-swiss-white hover:text-swiss-dark"
           >
-            Book Now
+            {t.nav.bookNow}
           </Link>
         </div>
 
@@ -87,9 +93,12 @@ export default function Navbar() {
             className="absolute top-0 left-0 h-screen w-full bg-swiss-dark p-8 md:hidden"
           >
             <div className="flex flex-col space-y-8 pt-24 text-center">
+              <div className="flex justify-center">
+                <LanguageSwitcher />
+              </div>
               {NAV_LINKS.map((link) => (
                 <Link
-                  key={link.name}
+                  key={link.href}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="font-serif text-3xl text-swiss-white"
@@ -102,7 +111,7 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="mt-8 border border-swiss-white/20 py-4 font-sans text-xs uppercase tracking-widest text-swiss-white"
               >
-                Book Now
+                {t.nav.bookNow}
               </Link>
             </div>
             <button
