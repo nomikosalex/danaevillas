@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function RoomSection() {
@@ -46,10 +47,12 @@ export default function RoomSection() {
               className="group cursor-pointer"
             >
               <div className="relative overflow-hidden aspect-[4/5] mb-8">
-                <img
+                <Image
                   src={room.image}
                   alt={room.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 contrast-[1.05] brightness-[1.05] saturate-[1.05]"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-105 contrast-[1.05] brightness-[1.05] saturate-[1.05]"
                 />
                 <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-500" />
               </div>

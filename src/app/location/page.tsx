@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function LocationPage() {
@@ -11,10 +12,13 @@ export default function LocationPage() {
     <main className="bg-swiss-white min-h-screen">
       {/* Header Section */}
       <section className="relative h-[60vh] w-full overflow-hidden bg-swiss-dark">
-        <img
+        <Image
           src="/images/authentic/location-hero.jpg"
-          alt="Danae Villa at Night"
-          className="h-full w-full object-cover opacity-60 object-[center_75%]"
+          alt="Danae Villa at night — Fira, Santorini"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-60 object-[center_75%]"
         />
         <div className="absolute inset-0 flex items-center justify-center p-8 text-center pt-24">
           <div>
@@ -94,7 +98,7 @@ export default function LocationPage() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 sandbox="allow-same-origin allow-scripts"
-                title="Villa location map"
+                title="Danae Villa location map — Kontochori, Fira, Santorini"
                 className="grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
               ></iframe>
               <div className="absolute inset-0 pointer-events-none border-[15px] border-swiss-dark shadow-[inset_0_0_80px_rgba(0,0,0,0.4)] opacity-30 group-hover:opacity-0 transition-opacity duration-500"></div>

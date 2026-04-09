@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import HeroSection from "@/components/HeroSection";
 import RoomSection from "@/components/RoomSection";
 import { useLanguage } from "@/context/LanguageContext";
@@ -29,10 +30,12 @@ export default function Home() {
 
       {/* Pool Highlight Section */}
       <section className="relative h-[80vh] w-full overflow-hidden">
-        <img
+        <Image
           src="/images/authentic/pool.jpg"
-          alt="Danae Villa Pool at Twilight"
-          className="h-full w-full object-cover"
+          alt="Danae Villa — Private Swimming Pool at Twilight"
+          fill
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-0 flex items-center justify-center">

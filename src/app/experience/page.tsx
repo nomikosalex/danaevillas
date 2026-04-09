@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function ExperiencePage() {
@@ -34,10 +35,12 @@ export default function ExperiencePage() {
       <section className="py-32 px-8 md:px-24 bg-swiss-white text-swiss-dark">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="relative aspect-[4/5] overflow-hidden">
-            <img
+            <Image
               src="/images/authentic/pool.jpg"
-              alt="Breakfast by the pool"
-              className="w-full h-full object-cover"
+              alt="Traditional breakfast by the pool at Danae Villa"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
             />
           </div>
           <div className="space-y-8">
@@ -74,8 +77,14 @@ export default function ExperiencePage() {
               whileHover={{ y: -10 }}
               className="group border border-swiss-white/10 p-12 space-y-8 transition-colors hover:border-swiss-white/30"
             >
-              <div className="aspect-video bg-swiss-white/5 overflow-hidden">
-                <img src="/images/transfers.png" className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Private Transfer" />
+              <div className="relative aspect-video bg-swiss-white/5 overflow-hidden">
+                <Image
+                  src="/images/transfers.png"
+                  alt="Private airport transfer service — Danae Villa Santorini"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                />
               </div>
               <h3 className="font-serif text-2xl">{e.transferTitle}</h3>
               <p className="text-swiss-gray/60 font-light text-sm leading-relaxed">
@@ -89,8 +98,14 @@ export default function ExperiencePage() {
               whileHover={{ y: -10 }}
               className="group border border-swiss-white/10 p-12 space-y-8 transition-colors hover:border-swiss-white/30"
             >
-              <div className="aspect-video bg-swiss-white/5 overflow-hidden">
-                <img src="/images/tours.png" className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Island Tours" />
+              <div className="relative aspect-video bg-swiss-white/5 overflow-hidden">
+                <Image
+                  src="/images/tours.png"
+                  alt="Tailored Santorini island excursions and sunset cruises"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                />
               </div>
               <h3 className="font-serif text-2xl">{e.toursTitle}</h3>
               <p className="text-swiss-gray/60 font-light text-sm leading-relaxed">

@@ -65,6 +65,8 @@ export default function Footer() {
               <a
                 key={social}
                 href="#"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-[10px] uppercase tracking-[0.2em]"
               >
                 {social}

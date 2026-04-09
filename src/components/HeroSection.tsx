@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function HeroSection() {
@@ -31,10 +32,13 @@ export default function HeroSection() {
         className="absolute inset-0 z-0 h-[120vh] w-full"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-swiss-dark z-10" />
-        <img
+        <Image
           src="/images/hero.png"
-          alt="Danae Villa - Santorini Caldera View"
-          className="h-full w-full object-cover grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+          alt="Danae Villa — Santorini Caldera View"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover grayscale opacity-30 transition-all duration-1000"
         />
       </motion.div>
 

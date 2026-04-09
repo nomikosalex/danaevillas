@@ -140,6 +140,8 @@ export default function ContactPage() {
             <div className="pt-4">
               <a
                 href="https://wa.me/30XXXXXXXXXX"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-6 py-3 rounded-full hover:bg-white/10 transition-all text-[10px] uppercase tracking-[0.2em]"
               >
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
