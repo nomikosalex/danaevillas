@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter, usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { Lang } from '@/i18n/translations';
 
@@ -13,14 +14,22 @@ const LANGUAGES: { code: Lang; flag: string; label: string }[] = [
 ];
 
 export default function LanguageSwitcher() {
-  const { lang, setLang } = useLanguage();
+  const { lang } = useLanguage();
+  const router = useRouter();
+  const pathname = usePathname(); // e.g. '/en/rooms'
+
+  const switchLang = (newLocale: Lang) => {
+    const segments = pathname.split('/'); // ['', 'en', 'rooms']
+    segments[1] = newLocale;             // ['', 'el', 'rooms']
+    router.push(segments.join('/') || '/');
+  };
 
   return (
     <div className="flex items-center gap-1">
       {LANGUAGES.map(({ code, flag, label }) => (
         <button
           key={code}
-          onClick={() => setLang(code)}
+          onClick={() => switchLang(code)}
           title={label}
           aria-label={`Switch to ${label}`}
           className={`text-base leading-none transition-all duration-200 select-none

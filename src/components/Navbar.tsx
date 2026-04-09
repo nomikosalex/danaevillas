@@ -11,20 +11,21 @@ import LanguageSwitcher from './LanguageSwitcher';
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
+  const pathname = usePathname(); // e.g. '/en/rooms'
   const { t } = useLanguage();
 
+  // Extract locale prefix from URL (e.g. 'en', 'el')
+  const locale = pathname.split('/')[1] || 'en';
+
   const NAV_LINKS = [
-    { name: t.nav.home, href: '/' },
-    { name: t.nav.rooms, href: '/rooms' },
-    { name: t.nav.experience, href: '/experience' },
-    { name: t.nav.location, href: '/location' },
+    { name: t.nav.home,       href: `/${locale}` },
+    { name: t.nav.rooms,      href: `/${locale}/rooms` },
+    { name: t.nav.experience, href: `/${locale}/experience` },
+    { name: t.nav.location,   href: `/${locale}/location` },
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -37,7 +38,7 @@ export default function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8">
         {/* Logo */}
-        <Link href="/" className="group relative">
+        <Link href={`/${locale}`} className="group relative">
           <span className="font-serif text-2xl font-bold tracking-tighter text-swiss-white transition-opacity group-hover:opacity-70">
             DANAE
           </span>
@@ -67,7 +68,7 @@ export default function Navbar() {
           <LanguageSwitcher />
 
           <Link
-            href="/book"
+            href={`/${locale}/book`}
             className="border border-swiss-white/20 px-6 py-2 font-sans text-[10px] uppercase tracking-[0.3em] text-swiss-white transition-all hover:bg-swiss-white hover:text-swiss-dark"
           >
             {t.nav.bookNow}
@@ -107,7 +108,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link
-                href="/book"
+                href={`/${locale}/book`}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="mt-8 border border-swiss-white/20 py-4 font-sans text-xs uppercase tracking-widest text-swiss-white"
               >

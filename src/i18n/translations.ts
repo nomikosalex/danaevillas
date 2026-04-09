@@ -1,4 +1,5 @@
 export type Lang = 'en' | 'el' | 'it' | 'fr' | 'de' | 'zh';
+export const LOCALES: Lang[] = ['en', 'el', 'it', 'fr', 'de', 'zh'];
 
 export interface T {
   nav: { home: string; rooms: string; experience: string; location: string; bookNow: string };
