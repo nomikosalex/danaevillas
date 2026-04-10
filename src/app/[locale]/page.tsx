@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import HeroSection from '@/components/HeroSection';
 import RoomSection from '@/components/RoomSection';
+import ReviewsSection from '@/components/ReviewsSection';
+import GallerySection from '@/components/GallerySection';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function Home() {
@@ -46,8 +48,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Rooms with pricing */}
       <RoomSection />
-      <section className="h-[20vh] bg-swiss-dark" />
+
+      {/* Reviews & Ratings */}
+      <ReviewsSection />
+
+      {/* Photo Gallery */}
+      <GallerySection />
+
+      <section className="h-[10vh] bg-swiss-dark" />
     </main>
   );
 }
