@@ -1,9 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useLanguage } from '@/context/LanguageContext';
 import { T } from '@/i18n/translations';
+
+// Replace with your real site key from https://dashboard.hcaptcha.com
+// The key below is hCaptcha's official test key — safe to deploy, always passes
+const HCAPTCHA_SITE_KEY = '10000000-ffff-ffff-ffff-000000000001';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const VALID_SERVICES = ['none', 'transfers', 'tours', 'both'];
@@ -71,12 +76,15 @@ export default function ContactPage() {
   const { t } = useLanguage();
   const c = t.contact;
 
-  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [values, setValues] = useState<FormValues>({
     name: '', email: '', checkIn: '', checkOut: '', service: 'none', message: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaError, setCaptchaError] = useState(false);
+  const captchaRef = useRef<HCaptcha>(null);
 
   const handleChange = (field: keyof FormValues, value: string) => {
     const sanitized = value.slice(0, field === 'message' ? 1000 : 200);
@@ -90,7 +98,7 @@ export default function ContactPage() {
     setErrors(validate(values, c));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const allTouched = Object.fromEntries(Object.keys(values).map((k) => [k, true]));
     setTouched(allTouched);
@@ -98,8 +106,47 @@ export default function ContactPage() {
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
+    if (!captchaToken) {
+      setCaptchaError(true);
+      return;
+    }
+    setCaptchaError(false);
     setFormState('submitting');
-    setTimeout(() => setFormState('success'), 1500);
+
+    try {
+      const body = new URLSearchParams({
+        'form-name': 'contact',
+        'bot-field': '',
+        name: values.name,
+        email: values.email,
+        'check-in': values.checkIn,
+        'check-out': values.checkOut,
+        service: values.service,
+        message: values.message,
+        'h-captcha-response': captchaToken,
+      });
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+      if (!res.ok) throw new Error('Network error');
+      setFormState('success');
+    } catch {
+      setFormState('error');
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
+    }
+  };
+
+  const resetForm = () => {
+    setFormState('idle');
+    setValues({ name: '', email: '', checkIn: '', checkOut: '', service: 'none', message: '' });
+    setErrors({});
+    setTouched({});
+    setCaptchaToken(null);
+    setCaptchaError(false);
+    captchaRef.current?.resetCaptcha();
   };
 
   const errorClass = 'mt-1 text-[10px] text-red-400 tracking-wider';
@@ -112,6 +159,16 @@ export default function ContactPage() {
 
   return (
     <main className="bg-swiss-dark min-h-screen pt-32 pb-24 text-swiss-white">
+      {/* Hidden form for Netlify to detect at build time */}
+      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="check-in" />
+        <input type="text" name="check-out" />
+        <input type="text" name="service" />
+        <textarea name="message" />
+      </form>
+
       <div className="max-w-7xl mx-auto px-8 md:px-24 grid grid-cols-1 lg:grid-cols-2 gap-24">
         {/* Left Column: Info */}
         <div className="space-y-12">
@@ -154,7 +211,28 @@ export default function ContactPage() {
         {/* Right Column: Form */}
         <div className="relative">
           <AnimatePresence mode="wait">
-            {formState !== 'success' ? (
+            {formState === 'success' ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="h-full flex flex-col items-center justify-center text-center space-y-6 py-24 border border-swiss-white/10"
+              >
+                <div className="w-16 h-16 border border-swiss-white rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-swiss-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h2 className="font-serif text-3xl">{c.successTitle}</h2>
+                <p className="text-swiss-gray/60 font-light text-sm max-w-xs mx-auto">{c.successText}</p>
+                <button
+                  onClick={resetForm}
+                  className="text-[10px] uppercase tracking-[0.3em] text-swiss-white border-b border-swiss-white/20 pb-1"
+                >
+                  {c.successBtn}
+                </button>
+              </motion.div>
+            ) : (
               <motion.form
                 key="form"
                 initial={{ opacity: 0, y: 20 }}
@@ -164,6 +242,12 @@ export default function ContactPage() {
                 noValidate
                 className="space-y-8"
               >
+                {formState === 'error' && (
+                  <div className="border border-red-400/30 bg-red-400/5 px-4 py-3 text-xs text-red-400 tracking-wider">
+                    {c.errSubmit}
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-1">
                     <label className="text-[10px] uppercase tracking-widest text-swiss-gray/40 ml-1">{c.nameLabel}</label>
@@ -253,6 +337,20 @@ export default function ContactPage() {
                   {errors.message && touched.message && <p className={errorClass}>{errors.message}</p>}
                 </div>
 
+                {/* hCaptcha */}
+                <div className="space-y-1">
+                  <HCaptcha
+                    ref={captchaRef}
+                    sitekey={HCAPTCHA_SITE_KEY}
+                    theme="dark"
+                    onVerify={(token) => { setCaptchaToken(token); setCaptchaError(false); }}
+                    onExpire={() => setCaptchaToken(null)}
+                  />
+                  {captchaError && (
+                    <p className={errorClass}>{c.captchaRequired}</p>
+                  )}
+                </div>
+
                 <button
                   disabled={formState === 'submitting'}
                   type="submit"
@@ -261,34 +359,6 @@ export default function ContactPage() {
                   {formState === 'submitting' ? c.submittingBtn : c.submitBtn}
                 </button>
               </motion.form>
-            ) : (
-              <motion.div
-                key="success"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="h-full flex flex-col items-center justify-center text-center space-y-6 py-24 border border-swiss-white/10"
-              >
-                <div className="w-16 h-16 border border-swiss-white rounded-full flex items-center justify-center">
-                  <svg className="w-8 h-8 text-swiss-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h2 className="font-serif text-3xl">{c.successTitle}</h2>
-                <p className="text-swiss-gray/60 font-light text-sm max-w-xs mx-auto">
-                  {c.successText}
-                </p>
-                <button
-                  onClick={() => {
-                    setFormState('idle');
-                    setValues({ name: '', email: '', checkIn: '', checkOut: '', service: 'none', message: '' });
-                    setErrors({});
-                    setTouched({});
-                  }}
-                  className="text-[10px] uppercase tracking-[0.3em] text-swiss-white border-b border-swiss-white/20 pb-1"
-                >
-                  {c.successBtn}
-                </button>
-              </motion.div>
             )}
           </AnimatePresence>
         </div>

@@ -29,7 +29,7 @@ const nextConfig = {
           { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains; preload' },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://login.smoobu.com; style-src 'self' 'unsafe-inline' https://login.smoobu.com; img-src 'self' blob: data: https://*.tile.openstreetmap.org https://login.smoobu.com; font-src 'self' https://login.smoobu.com; connect-src 'self' https://login.smoobu.com; frame-src https://www.openstreetmap.org https://login.smoobu.com;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://login.smoobu.com https://js.hcaptcha.com; style-src 'self' 'unsafe-inline' https://login.smoobu.com https://newassets.hcaptcha.com; img-src 'self' blob: data: https://*.tile.openstreetmap.org https://login.smoobu.com https://newassets.hcaptcha.com; font-src 'self' https://login.smoobu.com; connect-src 'self' https://login.smoobu.com https://hcaptcha.com https://*.hcaptcha.com; frame-src https://www.openstreetmap.org https://login.smoobu.com https://newassets.hcaptcha.com;",
           },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()' },
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
