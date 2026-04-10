@@ -159,16 +159,6 @@ export default function ContactPage() {
 
   return (
     <main className="bg-swiss-dark min-h-screen pt-32 pb-24 text-swiss-white">
-      {/* Hidden form for Netlify to detect at build time */}
-      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="text" name="check-in" />
-        <input type="text" name="check-out" />
-        <input type="text" name="service" />
-        <textarea name="message" />
-      </form>
-
       <div className="max-w-7xl mx-auto px-8 md:px-24 grid grid-cols-1 lg:grid-cols-2 gap-24">
         {/* Left Column: Info */}
         <div className="space-y-12">

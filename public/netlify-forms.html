@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8" /><title>Netlify Forms</title></head>
+<body>
+  <!--
+    This file exists solely so Netlify can detect the "contact" form at deploy time.
+    @netlify/plugin-nextjs@5 requires form definitions to be in a static HTML file,
+    not inside JSX. The actual form submission is handled by the React contact page
+    via fetch() POST to Netlify's forms endpoint.
+  -->
+  <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="text"  name="name" />
+    <input type="email" name="email" />
+    <input type="text"  name="check-in" />
+    <input type="text"  name="check-out" />
+    <input type="text"  name="service" />
+    <textarea           name="message"></textarea>
+    <input type="text"  name="h-captcha-response" />
+  </form>
+</body>
+</html>
