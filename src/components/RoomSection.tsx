@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 const ROOM_IMAGES = [
@@ -25,12 +25,19 @@ const ROOM_IMAGES = [
   ],
 ];
 
-// Update these prices to match current Booking.com rates
-const ROOM_PRICES = [85, 70];
+const SEASON_PRICES_2026 = [
+  { period: 'May 2026',       dates: '1 – 31 May',      price: 57  },
+  { period: 'June 2026',      dates: '1 – 30 June',     price: 90  },
+  { period: 'July 2026',      dates: '1 – 31 July',     price: 110 },
+  { period: 'August 2026',    dates: '1 – 31 August',   price: 110 },
+  { period: 'September 2026', dates: '1 – 30 September',price: 90  },
+  { period: 'October 2026',   dates: '1 – 31 October',  price: 57  },
+];
 
 export default function RoomSection() {
   const { t } = useLanguage();
   const [currentImage, setCurrentImage] = useState<Record<number, number>>({ 0: 0, 1: 0 });
+  const [showPrices, setShowPrices] = useState(false);
 
   const go = (roomIdx: number, dir: 1 | -1) => {
     const total = ROOM_IMAGES[roomIdx].length;
@@ -131,8 +138,14 @@ export default function RoomSection() {
                     {room.title}
                   </h3>
                   <div className="text-right ml-4 shrink-0">
-                    <div className="font-serif text-2xl text-swiss-dark">€{ROOM_PRICES[roomIdx]}</div>
+                    <div className="font-serif text-2xl text-swiss-dark">€57</div>
                     <div className="text-[9px] uppercase tracking-widest text-swiss-dark/40">from / night</div>
+                    <button
+                      onClick={() => setShowPrices(true)}
+                      className="mt-1.5 text-[9px] uppercase tracking-widest text-swiss-dark/60 border border-swiss-dark/20 px-2.5 py-1 hover:bg-swiss-dark hover:text-swiss-white transition-all"
+                    >
+                      2026 Prices
+                    </button>
                   </div>
                 </div>
 
@@ -152,6 +165,68 @@ export default function RoomSection() {
           })}
         </div>
       </div>
+
+      {/* Price Modal */}
+      <AnimatePresence>
+        {showPrices && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center px-4"
+            onClick={() => setShowPrices(false)}
+          >
+            <div className="absolute inset-0 bg-swiss-dark/60 backdrop-blur-sm" />
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.97 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative bg-swiss-white w-full max-w-sm shadow-2xl"
+            >
+              {/* Modal header */}
+              <div className="px-8 pt-8 pb-6 border-b border-swiss-dark/10">
+                <span className="block text-[9px] uppercase tracking-[0.5em] text-swiss-dark/40 mb-3">Season 2026</span>
+                <h3 className="font-serif text-2xl text-swiss-dark">Price List</h3>
+                <button
+                  onClick={() => setShowPrices(false)}
+                  className="absolute top-6 right-6 text-swiss-dark/40 hover:text-swiss-dark transition-colors"
+                  aria-label="Close"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Price rows */}
+              <div className="px-8 py-6 space-y-0">
+                {SEASON_PRICES_2026.map((row, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between py-3.5 border-b border-swiss-dark/8 last:border-0"
+                  >
+                    <div>
+                      <p className="text-swiss-dark text-sm font-light">{row.period}</p>
+                      <p className="text-swiss-dark/40 text-[10px] tracking-wider">{row.dates}</p>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-serif text-xl text-swiss-dark">€{row.price}</span>
+                      <span className="text-[9px] uppercase tracking-widest text-swiss-dark/40 block">/ night</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Modal footer note */}
+              <div className="px-8 pb-8">
+                <p className="text-[10px] text-swiss-dark/40 leading-relaxed">
+                  Prices are per room, per night. Subject to availability.
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

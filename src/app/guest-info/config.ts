@@ -31,7 +31,7 @@ export const guestInfo = {
   host: {
     name:   'Evi Nomikou',
     phone:  '+30 695 516 2317',
-    whatsapp: '306955162317',  // number only, no spaces or +
+    whatsapp: '306955152317',  // number only, no spaces or +
   },
 
 };

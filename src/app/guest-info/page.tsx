@@ -179,6 +179,62 @@ export default function GuestInfoPage() {
         </div>
       </section>
 
+      {/* Suggested Places */}
+      <section className="px-6 py-10 border-b border-[#1a1a1a]/10">
+        <span className="block text-[10px] uppercase tracking-[0.4em] text-[#8a7e74] mb-2">
+          {lang === 'en' ? 'Suggested Places' : 'Προτεινόμενα Μέρη'}
+        </span>
+        <p className="text-[#1a1a1a]/50 text-xs font-light mb-8">
+          {lang === 'en'
+            ? 'Our favourite restaurants and spots around Santorini'
+            : 'Τα αγαπημένα μας εστιατόρια και μέρη στη Σαντορίνη'}
+        </p>
+        <div className="space-y-7">
+          {[
+            {
+              area: lang === 'en' ? 'Caldera View' : 'Θέα Καλντέρας',
+              places: ['Fanari Restaurant'],
+            },
+            {
+              area: lang === 'en' ? 'City Centre' : 'Κέντρο Πόλης',
+              places: ['Salt and Pepper', 'Yogi', 'Gyro (souvlaki, pizza, salad, spaghetti)'],
+            },
+            {
+              area: 'Perissa',
+              places: ["Fratzescos Fish Tavern", 'Perivolos 41 Coffee Bar', 'Wet Stories', 'Taverna Perivolos'],
+            },
+            {
+              area: 'Oia',
+              places: ['1888 Restaurant'],
+            },
+            {
+              area: 'Kamari',
+              places: ['Vasilikos Restaurant', 'Perigiali Restaurant', 'Mango Bar', 'Prince'],
+            },
+            {
+              area: 'Exo Gonia',
+              places: ['Metaxi Mas'],
+            },
+            {
+              area: 'Akrotiri',
+              places: ['Dolphins'],
+            },
+          ].map((group) => (
+            <div key={group.area}>
+              <p className="text-[#8a7e74] text-[10px] uppercase tracking-widest mb-2.5">{group.area}</p>
+              <div className="space-y-2">
+                {group.places.map((place) => (
+                  <div key={place} className="flex items-center gap-2.5">
+                    <span className="text-[#c9b99a] text-xs flex-shrink-0">◆</span>
+                    <p className="text-[#1a1a1a] text-sm font-light">{place}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Contact */}
       <section className="px-6 py-10 border-b border-[#1a1a1a]/10">
         <span className="block text-[10px] uppercase tracking-[0.4em] text-[#8a7e74] mb-6">{t.contactLabel}</span>
