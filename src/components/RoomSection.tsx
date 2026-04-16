@@ -26,18 +26,29 @@ const ROOM_IMAGES = [
 ];
 
 const SEASON_PRICES_2026 = [
-  { period: 'May 2026',       dates: '1 – 31 May',      price: 57  },
-  { period: 'June 2026',      dates: '1 – 30 June',     price: 90  },
-  { period: 'July 2026',      dates: '1 – 31 July',     price: 110 },
-  { period: 'August 2026',    dates: '1 – 31 August',   price: 110 },
-  { period: 'September 2026', dates: '1 – 30 September',price: 90  },
-  { period: 'October 2026',   dates: '1 – 31 October',  price: 57  },
+  { period: 'May 2026',       dates: '1 – 31 May',       price: 57,  month: 5  },
+  { period: 'June 2026',      dates: '1 – 30 June',      price: 90,  month: 6  },
+  { period: 'July 2026',      dates: '1 – 31 July',      price: 110, month: 7  },
+  { period: 'August 2026',    dates: '1 – 31 August',    price: 110, month: 8  },
+  { period: 'September 2026', dates: '1 – 30 September', price: 90,  month: 9  },
+  { period: 'October 2026',   dates: '1 – 31 October',   price: 57,  month: 10 },
 ];
+
+const MIN_PRICE = Math.min(...SEASON_PRICES_2026.map((r) => r.price));
+
+function getCurrentSeasonPrice(): number {
+  const now = new Date();
+  const month = now.getMonth() + 1; // 1-indexed
+  const year = now.getFullYear();
+  if (year !== 2026) return MIN_PRICE;
+  return SEASON_PRICES_2026.find((r) => r.month === month)?.price ?? MIN_PRICE;
+}
 
 export default function RoomSection() {
   const { t } = useLanguage();
   const [currentImage, setCurrentImage] = useState<Record<number, number>>({ 0: 0, 1: 0 });
   const [showPrices, setShowPrices] = useState(false);
+  const currentPrice = getCurrentSeasonPrice();
 
   const go = (roomIdx: number, dir: 1 | -1) => {
     const total = ROOM_IMAGES[roomIdx].length;
@@ -138,7 +149,7 @@ export default function RoomSection() {
                     {room.title}
                   </h3>
                   <div className="text-right ml-4 shrink-0">
-                    <div className="font-serif text-2xl text-swiss-dark">€57</div>
+                    <div className="font-serif text-2xl text-swiss-dark">€{currentPrice}</div>
                     <div className="text-[9px] uppercase tracking-widest text-swiss-dark/40">from / night</div>
                     <button
                       onClick={() => setShowPrices(true)}
