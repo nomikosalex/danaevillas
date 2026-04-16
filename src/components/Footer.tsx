@@ -61,15 +61,18 @@ export default function Footer() {
           <h5 className="font-sans text-[10px] uppercase tracking-[0.3em] text-swiss-white font-medium">{t.footer.contactLabel}</h5>
           <p className="text-swiss-gray/60 text-xs font-light">danaevilla.01@gmail.com</p>
           <div className="flex space-x-6 mt-8">
-            {['Instagram', 'Facebook'].map((social) => (
+            {[
+              { name: 'Instagram', href: 'https://www.instagram.com/danae_villa_santorini_evi?igsh=MTczNXBqcnZocG91aA%3D%3D' },
+              { name: 'Facebook', href: '#' },
+            ].map((social) => (
               <a
-                key={social}
-                href="#"
+                key={social.name}
+                href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-[10px] uppercase tracking-[0.2em]"
               >
-                {social}
+                {social.name}
               </a>
             ))}
           </div>
