@@ -83,9 +83,17 @@ export default function Footer() {
         <p className="text-swiss-gray/20 text-[10px] uppercase tracking-widest">
           © {new Date().getFullYear()} Danae Villa Santorini
         </p>
-        <p className="text-swiss-gray/20 text-[10px] uppercase tracking-widest font-light italic">
-          {t.footer.copyright}
-        </p>
+        <div className="flex items-center gap-8">
+          <Link
+            href="/guest-info"
+            className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-[10px] uppercase tracking-widest border border-swiss-white/10 hover:border-swiss-white/30 px-4 py-2"
+          >
+            Guest Info
+          </Link>
+          <p className="text-swiss-gray/20 text-[10px] uppercase tracking-widest font-light italic">
+            {t.footer.copyright}
+          </p>
+        </div>
       </div>
     </footer>
   );
