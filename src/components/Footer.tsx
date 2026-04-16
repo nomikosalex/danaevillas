@@ -51,7 +51,7 @@ export default function Footer() {
               Greece, 84700
             </p>
             <p className="text-swiss-gray/40 text-[10px] font-light italic mt-4">
-              Quiet Area: Kontochori
+              Quiet Area: Katoikies
             </p>
           </address>
         </div>
@@ -59,7 +59,7 @@ export default function Footer() {
         {/* Contact */}
         <div className="space-y-6">
           <h5 className="font-sans text-[10px] uppercase tracking-[0.3em] text-swiss-white font-medium">{t.footer.contactLabel}</h5>
-          <p className="text-swiss-gray/60 text-xs font-light">info@danaevilla.eu</p>
+          <p className="text-swiss-gray/60 text-xs font-light">danaevilla.01@gmail.com</p>
           <div className="flex space-x-6 mt-8">
             {['Instagram', 'Facebook'].map((social) => (
               <a

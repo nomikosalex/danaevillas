@@ -175,7 +175,7 @@ export default function ContactPage() {
           <div className="space-y-8 pt-8 border-t border-swiss-white/5">
             <div>
               <h4 className="font-sans text-[10px] uppercase tracking-widest text-swiss-white mb-2">{c.directLabel}</h4>
-              <p className="text-swiss-gray/40 text-sm font-light">info@danaevilla.eu</p>
+              <p className="text-swiss-gray/40 text-sm font-light">danaevilla.01@gmail.com</p>
             </div>
             <div>
               <h4 className="font-sans text-[10px] uppercase tracking-widest text-swiss-white mb-2">{c.socialLabel}</h4>
@@ -186,7 +186,7 @@ export default function ContactPage() {
             </div>
             <div className="pt-4">
               <a
-                href="https://wa.me/30XXXXXXXXXX"
+                href="https://wa.me/306955152317"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-6 py-3 rounded-full hover:bg-white/10 transition-all text-[10px] uppercase tracking-[0.2em]"

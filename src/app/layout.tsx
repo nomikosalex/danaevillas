@@ -58,7 +58,7 @@ const jsonLd = {
   name: 'Danae Villa',
   description: 'A boutique luxury villa in the peaceful Kontochori neighbourhood of Fira, Santorini.',
   url: SITE_URL,
-  email: 'info@danaevilla.eu',
+  email: 'danaevilla.01@gmail.com',
   image: `${SITE_URL}/images/hero.png`,
   priceRange: '€€€',
   address: {

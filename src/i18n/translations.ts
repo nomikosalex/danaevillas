@@ -70,7 +70,7 @@ export const translations: Record<Lang, T> = {
       errCheckInRequired: 'Check-in date is required.', errCheckInPast: 'Check-in cannot be in the past.',
       errCheckOutRequired: 'Check-out date is required.', errCheckOutAfter: 'Check-out must be after check-in.',
       errServiceInvalid: 'Please select a valid option.', errMessageMax: 'Message must be under 1000 characters.',
-      errSubmit: 'Something went wrong. Please try again or email us at info@danaevilla.eu.', captchaRequired: 'Please complete the security check.',
+      errSubmit: 'Something went wrong. Please try again or email us at danaevilla.01@gmail.com.', captchaRequired: 'Please complete the security check.',
     },
     book: { label: 'Reserve Your Stay', title: 'Book Danae Villa', description: 'Check live availability and book directly \u2014 no middleman, best rate guaranteed.' },
     footer: {
@@ -135,7 +135,7 @@ export const translations: Record<Lang, T> = {
       errCheckInRequired: 'Η ημερομηνία άφιξης είναι υποχρεωτική.', errCheckInPast: 'Η άφιξη δεν μπορεί να είναι στο παρελθόν.',
       errCheckOutRequired: 'Η ημερομηνία αναχώρησης είναι υποχρεωτική.', errCheckOutAfter: 'Η αναχώρηση πρέπει να είναι μετά την άφιξη.',
       errServiceInvalid: 'Επιλέξτε μια έγκυρη επιλογή.', errMessageMax: 'Το μήνυμα πρέπει να είναι κάτω από 1000 χαρακτήρες.',
-      errSubmit: 'Κάτι πήγε στραβά. Δοκιμάστε ξανά ή στείλτε email στο info@danaevilla.eu.', captchaRequired: 'Παρακαλώ ολοκληρώστε τον έλεγχο ασφαλείας.',
+      errSubmit: 'Κάτι πήγε στραβά. Δοκιμάστε ξανά ή στείλτε email στο danaevilla.01@gmail.com.', captchaRequired: 'Παρακαλώ ολοκληρώστε τον έλεγχο ασφαλείας.',
     },
     book: { label: 'Κράτηση Διαμονής', title: 'Κράτηση Βίλας Δανάη', description: 'Ελέγξτε τη διαθεσιμότητα και κάντε απευθείας κράτηση \u2014 χωρίς μεσάζοντα, η καλύτερη τιμή εγγυημένη.' },
     footer: {
@@ -200,7 +200,7 @@ export const translations: Record<Lang, T> = {
       errCheckInRequired: 'La data di check-in è obbligatoria.', errCheckInPast: 'Il check-in non può essere nel passato.',
       errCheckOutRequired: 'La data di check-out è obbligatoria.', errCheckOutAfter: 'Il check-out deve essere dopo il check-in.',
       errServiceInvalid: 'Seleziona un\'opzione valida.', errMessageMax: 'Il messaggio deve essere inferiore a 1000 caratteri.',
-      errSubmit: 'Qualcosa è andato storto. Riprova o scrivici a info@danaevilla.eu.', captchaRequired: 'Completa il controllo di sicurezza.',
+      errSubmit: 'Qualcosa è andato storto. Riprova o scrivici a danaevilla.01@gmail.com.', captchaRequired: 'Completa il controllo di sicurezza.',
     },
     book: { label: 'Prenota il Tuo Soggiorno', title: 'Prenota Villa Danae', description: 'Verifica la disponibilità e prenota direttamente \u2014 nessun intermediario, miglior tariffa garantita.' },
     footer: {
@@ -265,7 +265,7 @@ export const translations: Record<Lang, T> = {
       errCheckInRequired: 'La date d\'arrivée est obligatoire.', errCheckInPast: 'L\'arrivée ne peut pas être dans le passé.',
       errCheckOutRequired: 'La date de départ est obligatoire.', errCheckOutAfter: 'Le départ doit être après l\'arrivée.',
       errServiceInvalid: 'Veuillez sélectionner une option valide.', errMessageMax: 'Le message doit être inférieur à 1000 caractères.',
-      errSubmit: 'Une erreur s\'est produite. Veuillez réessayer ou écrire à info@danaevilla.eu.', captchaRequired: 'Veuillez compléter la vérification de sécurité.',
+      errSubmit: 'Une erreur s\'est produite. Veuillez réessayer ou écrire à danaevilla.01@gmail.com.', captchaRequired: 'Veuillez compléter la vérification de sécurité.',
     },
     book: { label: 'Réservez Votre Séjour', title: 'Réserver Villa Danae', description: 'Vérifiez la disponibilité et réservez directement \u2014 sans intermédiaire, meilleur tarif garanti.' },
     footer: {
@@ -330,7 +330,7 @@ export const translations: Record<Lang, T> = {
       errCheckInRequired: 'Anreisedatum ist erforderlich.', errCheckInPast: 'Die Anreise kann nicht in der Vergangenheit liegen.',
       errCheckOutRequired: 'Abreisedatum ist erforderlich.', errCheckOutAfter: 'Die Abreise muss nach der Anreise liegen.',
       errServiceInvalid: 'Bitte wählen Sie eine gültige Option.', errMessageMax: 'Die Nachricht muss unter 1000 Zeichen liegen.',
-      errSubmit: 'Etwas ist schiefgelaufen. Bitte erneut versuchen oder schreiben Sie uns an info@danaevilla.eu.', captchaRequired: 'Bitte schließen Sie die Sicherheitsüberprüfung ab.',
+      errSubmit: 'Etwas ist schiefgelaufen. Bitte erneut versuchen oder schreiben Sie uns an danaevilla.01@gmail.com.', captchaRequired: 'Bitte schließen Sie die Sicherheitsüberprüfung ab.',
     },
     book: { label: 'Aufenthalt buchen', title: 'Villa Danae buchen', description: 'Prüfen Sie die Verfügbarkeit und buchen Sie direkt \u2014 kein Vermittler, bester Preis garantiert.' },
     footer: {
@@ -395,7 +395,7 @@ export const translations: Record<Lang, T> = {
       errCheckInRequired: '入住日期为必填项。', errCheckInPast: '入住日期不能是过去的日期。',
       errCheckOutRequired: '退房日期为必填项。', errCheckOutAfter: '退房日期必须在入住日期之后。',
       errServiceInvalid: '请选择一个有效选项。', errMessageMax: '留言不能超过1000个字符。',
-      errSubmit: '出现错误，请重试或发送邮件至info@danaevilla.eu。', captchaRequired: '请完成安全验证。',
+      errSubmit: '出现错误，请重试或发送邮件至danaevilla.01@gmail.com。', captchaRequired: '请完成安全验证。',
     },
     book: { label: '预订住宿', title: '预订达娜别墅', description: '查看实时可用情况并直接预订 \u2014 无中间商，最优惠价格保证。' },
     footer: {
