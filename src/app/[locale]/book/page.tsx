@@ -1,17 +1,12 @@
 'use client';
 
-import SmoobuWidget from '@/components/SmoobuWidget';
 import { useLanguage } from '@/context/LanguageContext';
-
-const SMOOBU_ACCOUNT_ID = 'YOUR_ACCOUNT_ID';
-const SMOOBU_APARTMENT_ID = 'YOUR_APARTMENT_ID';
 
 export default function BookPage() {
   const { t } = useLanguage();
 
   return (
     <main className="bg-swiss-white min-h-screen pt-32 pb-24">
-      {/* Header */}
       <section className="px-8 md:px-24 max-w-7xl mx-auto mb-16">
         <span className="block font-sans text-[10px] uppercase tracking-[0.5em] text-swiss-dark/40 mb-6">
           {t.book.label}
@@ -23,7 +18,6 @@ export default function BookPage() {
           {t.book.description}
         </p>
 
-        {/* Direct booking buttons */}
         <div className="mt-10 flex flex-col sm:flex-row gap-4">
           <a
             href={`mailto:danaevilla.01@gmail.com?subject=Booking%20Request%20%E2%80%93%20Danae%20Villa&body=Hello%2C%0A%0AI%20would%20like%20to%20make%20a%20booking%20inquiry%20at%20Danae%20Villa.%0A%0AName%3A%0ACheck-in%20date%3A%0ACheck-out%20date%3A%0ANumber%20of%20guests%3A%0A%0AThank%20you`}
@@ -46,14 +40,6 @@ export default function BookPage() {
             Book via WhatsApp
           </a>
         </div>
-      </section>
-
-      {/* Smoobu booking widget */}
-      <section className="px-8 md:px-24 max-w-7xl mx-auto">
-        <SmoobuWidget
-          accountId={SMOOBU_ACCOUNT_ID}
-          apartmentId={SMOOBU_APARTMENT_ID}
-        />
       </section>
     </main>
   );

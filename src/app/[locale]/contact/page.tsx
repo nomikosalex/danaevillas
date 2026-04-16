@@ -181,7 +181,6 @@ export default function ContactPage() {
               <h4 className="font-sans text-[10px] uppercase tracking-widest text-swiss-white mb-2">{c.socialLabel}</h4>
               <div className="flex space-x-6">
                 <a href="https://www.instagram.com/danae_villa_santorini_evi?igsh=MTczNXBqcnZocG91aA%3D%3D" target="_blank" rel="noopener noreferrer" className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-xs">Instagram</a>
-                <a href="#" className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-xs">Facebook</a>
               </div>
             </div>
             <div className="pt-4">

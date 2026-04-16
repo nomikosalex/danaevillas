@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
+import CookieBanner from '@/components/CookieBanner';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,6 +18,9 @@ const playfair = Playfair_Display({
 const SITE_URL = 'https://danaevilla.eu';
 
 export const metadata: Metadata = {
+  verification: {
+    google: 'itpHI4Coun16a2Jw2UDRm_1lStDKhzUyHCBLgG3WvpA',
+  },
   metadataBase: new URL(SITE_URL),
   title: {
     default: 'Danae Villa | Boutique Luxury Villa in Fira, Santorini',
@@ -87,6 +91,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {children}
+        <CookieBanner />
       </body>
     </html>
   );

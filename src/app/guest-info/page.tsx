@@ -197,7 +197,7 @@ export default function GuestInfoPage() {
             },
             {
               area: lang === 'en' ? 'City Centre' : 'Κέντρο Πόλης',
-              places: ['Salt and Pepper', 'Yogi', 'Gyro (souvlaki, pizza, salad, spaghetti)'],
+              places: ['Salt and Pepper', 'Yogi (gyro, souvlaki, pizza, salad, spaghetti)'],
             },
             {
               area: 'Perissa',
