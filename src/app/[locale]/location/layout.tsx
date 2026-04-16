@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: 'Location in Fira, Santorini',
     description: 'Danae Villa is nestled in the peaceful Kontochori neighbourhood of Fira — just a 10-minute walk from the Caldera cliffs, iconic sunsets, and the heart of Santorini.',
-    openGraph: { title: 'Location in Fira, Santorini | Danae Villa', url: `https://danaevilla.eu/${lang}/location` },
+    openGraph: { title: 'Location in Fira, Santorini | Danae Villa', url: `https://danaevilla.com/${lang}/location` },
     alternates: getAlternates(lang, '/location'),
   };
 }

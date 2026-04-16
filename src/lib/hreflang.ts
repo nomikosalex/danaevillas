@@ -1,6 +1,6 @@
 import { Lang, LOCALES } from '@/i18n/translations';
 
-export const SITE_URL = 'https://danaevilla.eu';
+export const SITE_URL = 'https://danaevilla.com';
 
 const HREFLANG: Record<Lang, string> = {
   en: 'en',

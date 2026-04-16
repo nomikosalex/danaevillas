@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: 'Rooms & Suites',
     description: 'Explore our collection of traditional Santorini suites at Danae Villa in Fira. Whitewashed elegance, modern comfort, and authentic Cycladic character — book directly for the best rate.',
-    openGraph: { title: 'Rooms & Suites | Danae Villa Santorini', url: `https://danaevilla.eu/${lang}/rooms` },
+    openGraph: { title: 'Rooms & Suites | Danae Villa Santorini', url: `https://danaevilla.com/${lang}/rooms` },
     alternates: getAlternates(lang, '/rooms'),
   };
 }

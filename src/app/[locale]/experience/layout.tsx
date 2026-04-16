@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: 'The Santorini Experience',
     description: 'Discover authentic Santorini at Danae Villa — from traditional breakfasts by the pool to private sunset cruises and curated island excursions.',
-    openGraph: { title: 'The Santorini Experience | Danae Villa', url: `https://danaevilla.eu/${lang}/experience` },
+    openGraph: { title: 'The Santorini Experience | Danae Villa', url: `https://danaevilla.com/${lang}/experience` },
     alternates: getAlternates(lang, '/experience'),
   };
 }

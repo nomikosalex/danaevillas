@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: 'Contact & Reservations',
     description: 'Get in touch with Danae Villa in Santorini. Send a reservation enquiry, arrange private transfers, or ask about special requests. We respond personally within 24 hours.',
-    openGraph: { title: 'Contact & Reservations | Danae Villa Santorini', url: `https://danaevilla.eu/${lang}/contact` },
+    openGraph: { title: 'Contact & Reservations | Danae Villa Santorini', url: `https://danaevilla.com/${lang}/contact` },
     alternates: getAlternates(lang, '/contact'),
   };
 }

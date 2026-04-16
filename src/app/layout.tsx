@@ -15,7 +15,7 @@ const playfair = Playfair_Display({
   weight: ['400', '600', '700'],
 });
 
-const SITE_URL = 'https://danaevilla.eu';
+const SITE_URL = 'https://danaevilla.com';
 
 export const metadata: Metadata = {
   verification: {
@@ -60,11 +60,22 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LodgingBusiness',
   name: 'Danae Villa',
-  description: 'A boutique luxury villa in the peaceful Kontochori neighbourhood of Fira, Santorini.',
+  alternateName: 'Danae Villa Santorini',
+  description: 'A boutique luxury villa in the peaceful Kontochori neighbourhood of Fira, Santorini. Private pool, Cycladic architecture, direct booking.',
   url: SITE_URL,
   email: 'danaevilla.01@gmail.com',
-  image: `${SITE_URL}/images/hero.png`,
-  priceRange: '€€€',
+  telephone: '+306955152317',
+  image: [
+    `${SITE_URL}/images/hero.png`,
+    `${SITE_URL}/images/authentic/room-master.jpg`,
+    `${SITE_URL}/images/authentic/room-double.jpg`,
+  ],
+  priceRange: '€€',
+  numberOfRooms: 2,
+  checkinTime: '14:00',
+  checkoutTime: '11:00',
+  currenciesAccepted: 'EUR',
+  paymentAccepted: 'Cash, Credit Card',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Kontochori',
@@ -74,12 +85,17 @@ const jsonLd = {
     addressCountry: 'GR',
   },
   geo: { '@type': 'GeoCoordinates', latitude: 36.41804, longitude: 25.43899 },
+  sameAs: [
+    'https://www.instagram.com/danae_villa_santorini_evi',
+  ],
   amenityFeature: [
-    { '@type': 'LocationFeatureSpecification', name: 'Swimming Pool', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Air Conditioning', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Free Wi-Fi', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Private Balcony', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Private Transfers', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Swimming Pool',      value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Jacuzzi',            value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Air Conditioning',   value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Free Wi-Fi',         value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Private Balcony',    value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Private Transfers',  value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Breakfast',          value: true },
   ],
 };
 

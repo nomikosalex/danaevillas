@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { LOCALES } from '@/i18n/translations';
 import { BLOG_POSTS } from '@/content/blog/posts';
 
-const BASE = 'https://danaevilla.eu';
+const BASE = 'https://danaevilla.com';
 
 const PAGES = [
   { path: '',          priority: 1.0, freq: 'monthly'  as const },
@@ -11,7 +11,8 @@ const PAGES = [
   { path: '/experience', priority: 0.8, freq: 'monthly' as const },
   { path: '/contact',  priority: 0.7, freq: 'yearly'   as const },
   { path: '/location', priority: 0.6, freq: 'yearly'   as const },
-  { path: '/blog',     priority: 0.7, freq: 'weekly'   as const },
+  { path: '/blog',           priority: 0.7, freq: 'weekly'  as const },
+  { path: '/privacy-policy', priority: 0.2, freq: 'yearly' as const },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
