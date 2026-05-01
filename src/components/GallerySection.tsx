@@ -6,15 +6,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const GALLERY_IMAGES = [
-  { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/642559599.jpg?k=52864c0af41f4af534ce5cdb0c2bc1018d5042bc2b724b51de147ab690cf462b&o=', alt: 'Danae Villa — Santorini' },
-  { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/351578530.jpg?k=a7c176af14bb9e2b7090d48e890aa1b9628e9c386b09684b2dfcad8829a1327b&o=', alt: 'Danae Villa — Pool & Grounds' },
-  { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/239535361.jpg?k=2edcaa1287c273ff820b8aa01d0814873122e159881bb3c54aab6e5fb1bbe2ff&o=', alt: 'Danae Villa — Garden & Terrace' },
-  { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/239536272.jpg?k=48d675f0c6f864b9a333b6ca394e462ebe523dcf49ed22c66d413d362853ecf7&o=', alt: 'Danae Villa — Exterior' },
-  { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/550992707.jpg?k=58c93efc33617615065f8c42a77a15647488d75e2e996df5528c311520f339ca&o=', alt: 'Danae Villa — Outdoor Spaces' },
-  { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/642615742.jpg?k=b264dc79ba58aba994f8b479b672821d760f00a6a2244d5c259bf3e57b177ba6&o=', alt: 'Danae Villa — Santorini Views' },
-  { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/65918676.jpg?k=2e4db85cdcca0735f58cf67bb1c3f76cc973cde5f5247487f2aa5db898c63499&o=', alt: 'Danae Villa — Common Areas' },
-  { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/89991719.jpg?k=29698f9810ef20ab5289b7196b56928de97730f4f80fcb2a77393bf626f21084&o=', alt: 'Danae Villa — Breakfast & Dining' },
-  { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/351578306.jpg?k=3c34151cb49af3e12297b523b0a172497aa3bf21cdddd3da904645f8cee88a8c&o=', alt: 'Danae Villa — Cycladic Architecture' },
+  { src: '/images/authentic/pool.jpg',              alt: 'Danae Villa — Pool' },
+  { src: '/images/gallery/villa-exterior.jpg',      alt: 'Danae Villa — Exterior' },
+  { src: '/images/gallery/garden-pool.jpg',         alt: 'Danae Villa — Garden & Pool' },
+  { src: '/images/gallery/villa-pool.jpg',          alt: 'Danae Villa — Pool & Building' },
+  { src: '/images/gallery/pool-day.jpg',            alt: 'Danae Villa — Pool Terrace' },
+  { src: '/images/gallery/pool-night.png',          alt: 'Danae Villa — Pool at Night' },
+  { src: '/images/gallery/jacuzzi.jpg',             alt: 'Danae Villa — Private Jacuzzi' },
+  { src: '/images/gallery/balcony-view.jpg',        alt: 'Danae Villa — Balcony View' },
+  { src: '/images/gallery/reception-exterior.jpg',  alt: 'Danae Villa — Reception' },
+  { src: '/images/gallery/pool-garden.jpg',         alt: 'Danae Villa — Lush Gardens' },
+  { src: '/images/gallery/red-beach.jpg',           alt: 'Red Beach — Santorini' },
 ];
 
 export default function GallerySection() {

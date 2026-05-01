@@ -9,19 +9,24 @@ import { useLanguage } from '@/context/LanguageContext';
 const ROOM_IMAGES = [
   // Room 1 — Master Suite
   [
-    { src: '/images/authentic/room-master.jpg', alt: 'Master Suite — Danae Villa' },
-    { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/642618699.jpg?k=573da0d9ec8e29ad5ad06e9f2e18571b45b457392c560ead854a12d6a73d2523&o=', alt: 'Master Suite — Bedroom' },
-    { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/642525603.jpg?k=0b03998699da74193e45e13113bb10c2dfbeca9c653919ed29bf98c0759abd9e&o=', alt: 'Master Suite — Bathroom' },
-    { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/642560246.jpg?k=6d342ef7b9de1bfca1a97d550de6ec7d5cdcb9803dac4c009ce6f859e7937768&o=', alt: 'Master Suite — View' },
-    { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/642525187.jpg?k=93fe883e6897c0dbdd13eb14e62b9aa82600ac01790f286beabc5dea171e7f16&o=', alt: 'Master Suite — Details' },
+    { src: '/images/authentic/room-master.jpg',      alt: 'Master Suite — Danae Villa' },
+    { src: '/images/authentic/room-master-2.jpg',    alt: 'Master Suite — Bedroom' },
+    { src: '/images/authentic/room-master-3.jpg',    alt: 'Master Suite — Bed' },
+    { src: '/images/authentic/room-master-4.jpg',    alt: 'Master Suite — Towels' },
+    { src: '/images/authentic/room-master-5.jpg',    alt: 'Master Suite — En-suite' },
+    { src: '/images/authentic/room-master-6.jpg',    alt: 'Master Suite — Alternate View' },
+    { src: '/images/authentic/room-master-7.jpg',    alt: 'Master Suite — Mirror' },
+    { src: '/images/authentic/room-master-bath.jpg', alt: 'Master Suite — Bathroom' },
   ],
   // Room 2 — Double Room
   [
-    { src: '/images/authentic/room-double.jpg', alt: 'Double Room — Danae Villa' },
-    { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/463983131.jpg?k=805655c813a3cd16537a3ffe132ccd918fe29a923644c07499dfc788017a3459&o=', alt: 'Double Room — Bedroom' },
-    { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/351578651.jpg?k=76fd39bdc615491b730cbc5df4bc8fc9ef12433141b0fd638c701c7a61decc70&o=', alt: 'Double Room — Bathroom' },
-    { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/642559921.jpg?k=c8963e0ac7316b9d3eb15f4a4a41c996a3a42ea2e1e2d276d3de4ea82e8d9f11&o=', alt: 'Double Room — Terrace' },
-    { src: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/351578594.jpg?k=32ec2a010e88c0778b0dca06f1d842e4313b12b0ba0f77748845627c2c1a6f01&o=', alt: 'Double Room — Details' },
+    { src: '/images/authentic/room-double.jpg',      alt: 'Double Room — Danae Villa' },
+    { src: '/images/authentic/room-double-2.jpg',    alt: 'Double Room — Interior' },
+    { src: '/images/authentic/room-double-3.jpg',    alt: 'Double Room — Amenities' },
+    { src: '/images/authentic/room-double-4.jpg',    alt: 'Double Room — Balcony' },
+    { src: '/images/authentic/room-double-bath.jpg', alt: 'Double Room — Bathroom' },
+    { src: '/images/authentic/room-double-5.jpg',    alt: 'Double Room — Bedroom' },
+    { src: '/images/authentic/room-double-6.jpg',    alt: 'Double Room — Details' },
   ],
 ];
 
