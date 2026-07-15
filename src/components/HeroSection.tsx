@@ -54,6 +54,9 @@ export default function HeroSection() {
           </span>
           <h1 className="font-serif text-5xl font-bold tracking-tight text-swiss-white md:text-8xl lg:text-9xl">
             Danae Villa
+            <span className="mt-5 block font-sans text-sm font-light uppercase tracking-[0.3em] text-swiss-gray/70 md:text-base">
+              Family-Run Boutique Hotel in Fira, Santorini
+            </span>
           </h1>
           <p className="mt-6 font-sans text-lg font-light italic tracking-wide text-swiss-gray/90 md:text-xl">
             {t.hero.tagline}

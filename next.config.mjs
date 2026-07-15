@@ -7,7 +7,7 @@ const nextConfig = {
   },
   async redirects() {
     // Preserve old flat URLs → redirect to /en equivalents (301 permanent)
-    const pages = ['rooms', 'experience', 'location', 'contact', 'book'];
+    const pages = ['rooms', 'experience', 'location', 'contact', 'book', 'blog', 'privacy-policy'];
     const legacyRedirects = pages.map((page) => ({
       source: `/${page}`,
       destination: `/en/${page}`,

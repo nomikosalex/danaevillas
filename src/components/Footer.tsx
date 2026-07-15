@@ -4,14 +4,14 @@ import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   const links = [
-    { label: t.footer.linkHome, href: '/' },
-    { label: t.footer.linkRooms, href: '/rooms' },
-    { label: t.footer.linkExperience, href: '/experience' },
-    { label: t.footer.linkLocation, href: '/location' },
-    { label: t.footer.linkContact, href: '/contact' },
+    { label: t.footer.linkHome, href: `/${lang}` },
+    { label: t.footer.linkRooms, href: `/${lang}/rooms` },
+    { label: t.footer.linkExperience, href: `/${lang}/experience` },
+    { label: t.footer.linkLocation, href: `/${lang}/location` },
+    { label: t.footer.linkContact, href: `/${lang}/contact` },
   ];
 
   return (
@@ -79,7 +79,7 @@ export default function Footer() {
         </p>
         <div className="flex items-center gap-8">
           <Link
-            href="/en/privacy-policy"
+            href={`/${lang}/privacy-policy`}
             className="text-swiss-gray/40 hover:text-swiss-white transition-colors text-[10px] uppercase tracking-widest"
           >
             Privacy Policy

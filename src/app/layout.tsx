@@ -17,6 +17,11 @@ const playfair = Playfair_Display({
 
 const SITE_URL = 'https://danaevilla.com';
 
+// External profiles for JSON-LD `sameAs` (SEO entity linking).
+// Clean canonical URLs (tracking params stripped). Leave '' to omit.
+const BOOKING_URL = 'https://www.booking.com/hotel/gr/danae-villa.html';
+const TRIPADVISOR_URL = 'https://www.tripadvisor.com/Hotel_Review-g482942-d6207635-Reviews-Danae_Villa-Fira_Santorini_Cyclades_South_Aegean.html';
+
 export const metadata: Metadata = {
   verification: {
     google: 'itpHI4Coun16a2Jw2UDRm_1lStDKhzUyHCBLgG3WvpA',
@@ -85,9 +90,19 @@ const jsonLd = {
     addressCountry: 'GR',
   },
   geo: { '@type': 'GeoCoordinates', latitude: 36.41804, longitude: 25.43899 },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '9.6',
+    bestRating: '10',
+    worstRating: '1',
+    ratingCount: 612,
+    reviewCount: 612,
+  },
   sameAs: [
     'https://www.instagram.com/danae_villa_santorini_evi',
-  ],
+    BOOKING_URL,
+    TRIPADVISOR_URL,
+  ].filter(Boolean),
   amenityFeature: [
     { '@type': 'LocationFeatureSpecification', name: 'Swimming Pool',      value: true },
     { '@type': 'LocationFeatureSpecification', name: 'Jacuzzi',            value: true },
