@@ -25,11 +25,11 @@ const i18n = {
     footer:         'Danae Villa · Fira, Santorini',
     schedule: [
       { time: '08:30 – 10:00', label: 'Morning Coffee',  note: 'Complimentary coffee service' },
-      { time: '08:30 – 20:30', label: 'Reception',       note: 'Check-in & assistance'        },
-      { time: '10:00 – 20:00', label: 'Pool & Jacuzzi',  note: 'Open for guests'              },
+      { time: '08:30 – 21:00', label: 'Reception',       note: 'Check-in & assistance'        },
+      { time: '10:00 – 19:00', label: 'Pool & Jacuzzi',  note: 'Open for guests'              },
     ],
     regulations: [
-      'Swimming pool & jacuzzi open from 10:00 to 20:00',
+      'Swimming pool & jacuzzi open from 10:00 to 19:00',
       'Children must use the pool under parental supervision',
       'No diving permitted',
     ],
@@ -54,11 +54,11 @@ const i18n = {
     footer:         'Βίλα Δανάη · Φηρά, Σαντορίνη',
     schedule: [
       { time: '08:30 – 10:00', label: 'Πρωινός Καφές',  note: 'Δωρεάν υπηρεσία καφέ' },
-      { time: '08:30 – 20:30', label: 'Ρεσεψιόν',       note: 'Check-in & εξυπηρέτηση' },
-      { time: '10:00 – 20:00', label: 'Πισίνα & Τζακούζι', note: 'Ανοιχτό για επισκέπτες' },
+      { time: '08:30 – 21:00', label: 'Ρεσεψιόν',       note: 'Check-in & εξυπηρέτηση' },
+      { time: '10:00 – 19:00', label: 'Πισίνα & Τζακούζι', note: 'Ανοιχτό για επισκέπτες' },
     ],
     regulations: [
-      'Πισίνα & τζακούζι ανοιχτά από 10:00 έως 20:00',
+      'Πισίνα & τζακούζι ανοιχτά από 10:00 έως 19:00',
       'Τα παιδιά πρέπει να χρησιμοποιούν την πισίνα υπό γονική επίβλεψη',
       'Απαγορεύεται η βουτιά',
     ],

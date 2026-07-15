@@ -10,19 +10,19 @@ export const guestInfo = {
   wifi: {
     enabled: true,           // set to false to hide this section
     network: 'DanaeVilla',   // WiFi name (SSID)
-    password: '',            // WiFi password — fill this in
+    password: 'danae1973!',  // WiFi password
   },
 
   // --- DAILY SCHEDULE -----------------------------------------
   schedule: [
     { time: '08:30 – 10:00', label: 'Morning Coffee',  note: 'Complimentary coffee service' },
-    { time: '08:30 – 20:30', label: 'Reception',       note: 'Check-in & assistance'        },
-    { time: '10:00 – 20:00', label: 'Pool & Jacuzzi',  note: 'Open for guests'              },
+    { time: '08:30 – 21:00', label: 'Reception',       note: 'Check-in & assistance'        },
+    { time: '10:00 – 19:00', label: 'Pool & Jacuzzi',  note: 'Open for guests'              },
   ],
 
   // --- HOUSE REGULATIONS --------------------------------------
   regulations: [
-    'Swimming pool & jacuzzi open from 10:00 to 20:00',
+    'Swimming pool & jacuzzi open from 10:00 to 19:00',
     'Children must use the pool under parental supervision',
     'No diving permitted',
   ],
@@ -30,7 +30,7 @@ export const guestInfo = {
   // --- HOST / CONTACT -----------------------------------------
   host: {
     name:   'Evi Nomikou',
-    phone:  '+30 695 516 2317',
+    phone:  '+30 695 515 2317',
     whatsapp: '306955152317',  // number only, no spaces or +
   },
 
